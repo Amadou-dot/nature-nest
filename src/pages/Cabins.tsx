@@ -1,15 +1,18 @@
 import CabinTable from '../features/cabins/CabinTable';
+import Button from '../ui/Button';
 
 export default function Cabins() {
   return (
-    <>
-      <div className='flex justify-between items-center max-w-[1400px] mx-auto px-4 md:px-0'>
-        <h1 className='mb-5 text-lg text-center md:text-left md:text-3xl'>
+    <div className='max-w-[1400px] mx-auto px-4 md:px-0'>
+      <div className='flex justify-between items-center mb-5'>
+        <h1 className='text-lg text-center md:text-left md:text-3xl'>
           All Cabins
         </h1>
-        Filter
+        <Button size='medium'>Filter</Button>
       </div>
       <CabinTable />
-    </>
+      <div className='flex justify-end mt-5'>
+      </div>
+    </div>
   );
 }

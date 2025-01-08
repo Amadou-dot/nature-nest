@@ -1,15 +1,10 @@
 import { Cell, CellContext, flexRender, Header } from '@tanstack/react-table';
 import ContextMenu from '../../ui/contextMenu/ContextMenu';
-
-type Cabin = {
-  name: string;
-  maxCapacity: number;
-  regularPrice: number;
-  discount: number;
-  image: string;
-};
+import { Database } from '../../interfaces/database.types';
+type Cabin = Database["public"]["Tables"]["cabins"]["Row"];
 type HeaderType = Header<Cabin, unknown>;
 type CellType = Cell<Cabin, unknown>;
+
 export default function CabinRow({
   data,
   rowType,
@@ -36,7 +31,11 @@ export default function CabinRow({
           </td>
         ))) ||
         null}
-      {rowType === 'data' && <ContextMenu />}
+      {rowType === 'data' && (
+        <td>
+          <ContextMenu />
+        </td>
+      )}
     </tr>
   );
 }
