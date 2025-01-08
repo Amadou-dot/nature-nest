@@ -1,5 +1,5 @@
 import { Cell, CellContext, flexRender, Header } from '@tanstack/react-table';
-import ContextMenu from '../../ui/contextMenu/contextMenu';
+import ContextMenu from '../../ui/contextMenu/ContextMenu';
 
 type Cabin = {
   name: string;
