@@ -42,7 +42,7 @@ export async function createCabin(cabin: CabinForm) {
     .from('cabins')
     .insert({ ...cabin, image: fullImgPath })
     .select();
-  
+
   if (error) throw new Error('Error creating cabin');
   return true;
 }
