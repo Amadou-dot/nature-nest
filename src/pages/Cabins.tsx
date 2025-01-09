@@ -1,5 +1,5 @@
+import { Button } from '@mantine/core';
 import CabinTable from '../features/cabins/CabinTable';
-import Button from '../ui/Button';
 
 export default function Cabins() {
   return (
@@ -8,7 +8,7 @@ export default function Cabins() {
         <h1 className='text-lg text-center md:text-left md:text-3xl'>
           All Cabins
         </h1>
-        <Button size='medium'>Filter</Button>
+        <Button variant="filled" color="#4338ca " size='md'>Filter</Button>
       </div>
       <CabinTable />
       <div className='flex justify-end mt-5'>

@@ -1,128 +1,172 @@
 import { Button, FileInput, Textarea, TextInput } from '@mantine/core';
+import { notifications } from '@mantine/notifications';
 import { useForm } from '@tanstack/react-form';
-import { useState } from 'react';
+import {
+  validateDiscount,
+  validateMaxCapacity,
+  validateName,
+  validateRegularPrice,
+} from '../../helpers/validators';
+import { useCreateCabin } from '../../hooks/useCreateCabin';
+import { useUpdateCabin } from '../../hooks/useUpdateCabin';
+import { Database } from '../../interfaces/database.types';
+type Cabin = Database['public']['Tables']['cabins']['Row'];
 
-export default function CabinForm() {
-  const [image, setImage] = useState<File | null>(null);
+type CabinFormProps =
+  | { mode: 'create' }
+  | { mode: 'edit'; cabinData: Cabin; cabinId: number };
+
+export default function CabinForm(props: CabinFormProps) {
+  
+  const {isUpdating, updateCabinMutation, updateError} = useUpdateCabin();
+  const {isCreating, createCabinMutation, createError} = useCreateCabin();
+  const isEditMode = props.mode === 'edit';
+  const isBusy = isCreating || isUpdating;
   const { Field, handleSubmit } = useForm({
     defaultValues: {
-      name: '',
-      maxCapacity: 0,
-      regularPrice: 0,
-      discount: 0,
-      description: '',
-      image: null,
+      name: isEditMode ? props.cabinData.name : '',
+      maxCapacity: isEditMode ? props.cabinData.maxCapacity : 1,
+      regularPrice: isEditMode ? props.cabinData.regularPrice : 0,
+      discount: isEditMode ? props.cabinData.discount : 0,
+      description: isEditMode ? props.cabinData.description : '',
+      image: null as File | null,
     },
-    onSubmit: async ({ value }) => {
-      // get form data
-      const formData = {...value, image};
-      console.log(formData);
-      // Handle form submission, e.g., send formData to the server
+    onSubmit: async ({ value: cabinData }) => {
+      const dataToSubmit = { ...cabinData };
+      if (isEditMode)
+        updateCabinMutation({ cabinData: dataToSubmit, id: props.cabinId });
+      else createCabinMutation(dataToSubmit);
     },
   });
 
+  if (updateError || createError) {
+    let message = '';
+    if (updateError instanceof Error) message = updateError.message;
+    else if (createError instanceof Error) message = createError.message;
+    else message = 'Action could not be completed. Please try again';
+    notifications.show({
+      message,
+      color: 'red',
+      position: 'top-center',
+    });
+  }
+
   return (
     <form
-      className='w-96 mx-auto p-5'
+      className='w-max md:w-96 mx-auto p-5 flex flex-col items-center gap-3'
       onSubmit={e => {
         e.preventDefault();
         handleSubmit();
-      }}
-    >
+      }}>
       <Field
         name='name'
-        children={({ state, handleChange, handleBlur, name }) => (
-          <div className='flex gap-5'>
-            <label htmlFor={name}>Name</label>
-            <TextInput
-              className='w-full'
-              value={state.value}
-              onChange={e => handleChange(e.target.value)}
-              onBlur={handleBlur}
-              placeholder='Cabin name'
-              error={state.meta.errors[0]}
-            />
-          </div>
+        validators={{
+          onChange: ({ value }) => validateName(value),
+        }}>
+        {field => (
+          <TextInput
+            label='Name'
+            id={field.name}
+            name={field.name}
+            value={field.state.value || ''}
+            type='text'
+            onChange={e => field.handleChange(e.target.value)}
+            error={field.state.meta.errors[0]}
+            disabled={isBusy}
+          />
         )}
-      />
+      </Field>
       <Field
         name='maxCapacity'
-        children={({ state, handleChange, handleBlur, name }) => (
-          <div className='flex gap-5'>
-            <label htmlFor={name}>Capacity</label>
-            <TextInput
-              className='w-full'
-              value={state.value}
-              onChange={e => handleChange(Number(e.target.value))}
-              onBlur={handleBlur}
-              placeholder='Max capacity'
-              type='number'
-              error={state.meta.errors[0]}
-            />
-          </div>
+        validators={{
+          onChange: ({ value }) => validateMaxCapacity(value),
+        }}>
+        {field => (
+          <TextInput
+            label='Max capacity'
+            value={field.state.value || 0}
+            onChange={e => field.handleChange(e.target.valueAsNumber)}
+            onBlur={field.handleBlur}
+            placeholder='Max capacity'
+            type='number'
+            error={field.state.meta.errors[0]}
+            disabled={isBusy}
+          />
         )}
-      />
+      </Field>
       <Field
         name='regularPrice'
-        children={({ state, handleChange, handleBlur, name }) => (
-          <div className='flex gap-5'>
-            <label htmlFor={name}>Price</label>
-            <TextInput
-              className='w-full'
-              value={state.value}
-              onChange={e => handleChange(Number(e.target.value))}
-              onBlur={handleBlur}
-              placeholder='Regular price'
-              type='number'
-              error={state.meta.errors[0]}
-            />
-          </div>
+        validators={{
+          onChange: ({ value }) => validateRegularPrice(value),
+        }}
+        children={({ state, handleChange, handleBlur }) => (
+          <TextInput
+            label='Regular price'
+            value={state.value || 0}
+            onChange={e => handleChange(Number(e.target.value))}
+            onBlur={handleBlur}
+            placeholder='Regular price'
+            type='number'
+            error={state.meta.errors[0]}
+            disabled={isBusy}
+          />
         )}
       />
       <Field
         name='discount'
-        children={({ state, handleChange, handleBlur, name }) => (
-          <div className='flex gap-5'>
-            <label htmlFor={name}>Discount</label>
-            <TextInput
-              className='w-full'
-              value={state.value}
-              onChange={e => handleChange(Number(e.target.value))}
-              onBlur={handleBlur}
-              placeholder='Discount'
-              type='number'
-              error={state.meta.errors[0]}
-            />
-          </div>
+        validators={{
+          onChange: ({ value }) => validateDiscount(value),
+        }}
+        children={({ state, handleChange, handleBlur }) => (
+          <TextInput
+            label='Discount'
+            value={state.value || 0}
+            onChange={e => handleChange(Number(e.target.value))}
+            onBlur={handleBlur}
+            placeholder='Discount'
+            type='number'
+            error={state.meta.errors[0]}
+            disabled={isBusy}
+          />
         )}
       />
       <Field
         name='description'
-        children={({ state, handleChange, handleBlur, name }) => (
-          <div className='flex gap-5'>
-            <label htmlFor={name}>Description</label>
-            <Textarea
-              className='w-full'
-              value={state.value}
-              onChange={e => handleChange(e.target.value)}
-              onBlur={handleBlur}
-              placeholder='Cabin description'
-              error={state.meta.errors[0]}
-            />
-          </div>
+        validators={{
+          onChange: ({ value }) => {
+            if (!value) return 'Description is required';
+            if (value.length > 500)
+              return 'Description is too long (max 500 characters)';
+            return undefined;
+          },
+        }}
+        children={({ state, handleChange, handleBlur }) => (
+          <Textarea
+            label='Description'
+            value={state.value || ''}
+            onChange={e => handleChange(e.target.value)}
+            onBlur={handleBlur}
+            placeholder='Cabin description'
+            error={state.meta.errors[0]}
+            disabled={isBusy}
+          />
         )}
       />
-      <div className='flex gap-5'>
-        <label htmlFor='image'>Cabin Image</label>
-        <FileInput
-          id='image'
-          name='image'
-          accept='image/*'
-          onChange={setImage}
-          className='w-full'
-        />
-      </div>
-      <Button type='submit' className='mt-4 bg-blue-500 text-white px-4 py-2 rounded'>
+      <Field
+        name='image'
+        children={field => (
+          <FileInput
+            label='Upload an image'
+            accept='image/*'
+            onChange={field.handleChange}
+            placeholder='Upload an image'
+            error={field.state.meta.errors[0]}
+            disabled={isBusy}
+            withAsterisk
+          />
+        )}
+      />
+      <Button variant='filled' color='violet' type='submit' disabled={isBusy} loading={isBusy}>
         Submit
       </Button>
     </form>

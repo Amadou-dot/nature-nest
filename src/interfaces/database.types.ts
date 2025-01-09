@@ -109,6 +109,16 @@ export type Database = {
           name?: string | null
           regularPrice?: number | null
         }
+        Form: Omit<{
+          created_at: string
+          description: string | null
+          discount: number | null
+          id: number
+          image: File | null
+          maxCapacity: number | null
+          name: string | null
+          regularPrice: number | null
+        }, "id" | "created_at">
         Relationships: []
       }
       guests: {
