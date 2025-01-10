@@ -1,47 +1,17 @@
-import { Cell, CellContext, flexRender, Header } from '@tanstack/react-table';
-import { Database } from '../../interfaces/database.types';
+import Row from '../../ui/Row';
 import ContextMenu from '../../ui/ContextMenu';
+import { RowProps } from '../../types/table.types';
+import { Database } from '../../types/database.types';
+
 type Cabin = Database['public']['Tables']['cabins']['Row'];
-type HeaderType = Header<Cabin, unknown>;
-type CellType = Cell<Cabin, unknown>;
 
-type HeaderRowProps = {
-  data: HeaderType[];
-  rowType: 'header';
-};
-
-type DataRowProps = {
-  data: CellType[];
-  rowType: 'data';
-  cabinId: number;
-};
-
-type CabinRowProps = HeaderRowProps | DataRowProps;
-
-export default function CabinRow(props: CabinRowProps) {
-  return (
-    <tr className='border-b border-gray-200 hover:bg-gray-100'>
-      {props.rowType === 'header' &&
-        props.data?.map(row => (
-          <th className='bg-gray-100 px-4 py-2 text-left' key={row.id}>
-            {row.column.columnDef.header?.toString()}
-          </th>
-        ))}
-      {props.rowType === 'data' && (
-        <>
-          {props.data?.map(cell => (
-            <td className='px-4 py-2' key={cell.id}>
-              {flexRender(
-                cell.column.columnDef.cell,
-                cell.getContext() as CellContext<Cabin, unknown>
-              )}
-            </td>
-          ))}
-          <td>
-            <ContextMenu cabinId={props.cabinId} />
-          </td>
-        </>
-      )}
-    </tr>
+export default function CabinRow(props: RowProps<Cabin>) {
+  return props.rowType === 'header' ? (
+    <Row<Cabin> {...props} />
+  ) : (
+    <Row<Cabin>
+      {...props}
+      contextMenu={<ContextMenu cabinId={Number(props.data[0].row.id)} />}
+    />
   );
 }

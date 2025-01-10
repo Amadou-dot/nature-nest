@@ -2,7 +2,7 @@ import { Button, LoadingOverlay, NumberInput } from '@mantine/core';
 import { useForm } from '@tanstack/react-form';
 import { useUpdateSettings } from './useUpdateSettings';
 import { useQuery } from '@tanstack/react-query';
-import { getSettings } from './apiSettings';
+import { getSettings } from '../../services/apiSettings';
 
 export default function SettingsForm() {
   const {

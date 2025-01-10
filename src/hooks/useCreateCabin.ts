@@ -1,7 +1,7 @@
 import { notifications } from '@mantine/notifications';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useModal } from '../context/ModalContext';
-import { createCabin } from '../features/cabins/apiCabins';
+import { createCabin } from '../services/apiCabins';
 
 export const useCreateCabin = () => {
   const queryClient = useQueryClient();

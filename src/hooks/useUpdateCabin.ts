@@ -1,8 +1,8 @@
 import { notifications } from '@mantine/notifications';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useModal } from '../context/ModalContext';
-import { updateCabin } from '../features/cabins/apiCabins';
-import { Database } from '../interfaces/database.types';
+import { updateCabin } from '../services/apiCabins';
+import { Database } from '../types/database.types';
 type FormCabin = Database['public']['Tables']['cabins']['Form'];
 export const useUpdateCabin = () => {
   const queryClient = useQueryClient();

@@ -2,7 +2,7 @@ import { Button } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useModal } from '../context/ModalContext';
-import { deleteCabin } from '../features/cabins/apiCabins';
+import { deleteCabin } from '../services/apiCabins';
 
 export default function ConfirmDelete({ cabinId }: { cabinId: number }) {
   const queryClient = useQueryClient();

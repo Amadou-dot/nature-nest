@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
 import { HiOutlineEllipsisVertical } from 'react-icons/hi2';
 import { useModal } from '../context/ModalContext';
-import { getCabinById } from '../features/cabins/apiCabins';
+import { getCabinById } from '../services/apiCabins';
 import CabinDetails from '../features/cabins/CabinDetails';
 import CabinForm from '../features/cabins/CabinForm';
-import { Database } from '../interfaces/database.types';
+import { Database } from '../types/database.types';
 import ConfirmDelete from './ConfirmDelete';
 
 type Cabin = Database['public']['Tables']['cabins']['Row'];

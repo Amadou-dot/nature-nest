@@ -3,6 +3,7 @@ import { HiOutlineAdjustmentsVertical, HiOutlineCalendarDays, HiOutlineHomeModer
 import { NavLink } from 'react-router-dom';
 import logo from '../../assets/logo-light.png';
 import MobileMenu from './MobileMenu';
+import Uploader from '../../data/Uploader';
 
 export default function Sidebar({ className }: { className: string }) {
 
@@ -33,6 +34,7 @@ export default function Sidebar({ className }: { className: string }) {
             </NavLink>
           ))}
         </div>
+      <Uploader />
       </nav>
     </aside>
   );

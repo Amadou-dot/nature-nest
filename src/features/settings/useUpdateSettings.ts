@@ -1,6 +1,6 @@
 import { notifications } from '@mantine/notifications';
 import { useQueryClient, useMutation } from '@tanstack/react-query';
-import { updateSettings } from './apiSettings';
+import { updateSettings } from '../../services/apiSettings';
 
 export function useUpdateSettings() {
   const queryClient = useQueryClient();

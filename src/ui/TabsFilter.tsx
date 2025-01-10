@@ -1,15 +1,15 @@
 import { Tabs } from '@mantine/core';
 import { useSearchParams } from 'react-router-dom';
-export default function TabsFilter({tabs}: {tabs:{label: string, value: string}[]}) {
+export default function TabsFilter({tabs, param}: {tabs:{label: string, value: string}[], param: string}) {
   const [searchParams, setSearchParams] = useSearchParams();
   const handleFilterChange = (value: string | null) => {
-    searchParams.set('filter', value || 'all');
+    searchParams.set(param, value || 'all');
     setSearchParams(searchParams);
   };
   return (
     <Tabs
       defaultValue='all'
-      value={searchParams.get('filter') || 'all'}
+      value={searchParams.get(param) || 'all'}
       onChange={handleFilterChange}
       className='bg-gray-100'>
       <Tabs.List grow justify='space-between'>

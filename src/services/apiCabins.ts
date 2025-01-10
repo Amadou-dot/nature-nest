@@ -1,5 +1,5 @@
-import { Database } from '../../interfaces/database.types';
-import { supabase } from '../../supabase';
+import { Database } from '../types/database.types';
+import { supabase } from '../supabase';
 
 type Cabin = Database['public']['Tables']['cabins']['Row'];
 type CabinForm = Database['public']['Tables']['cabins']['Form'];

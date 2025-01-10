@@ -1,5 +1,5 @@
-import { Database } from '../../interfaces/database.types';
-import { supabase } from '../../supabase';
+import { Database } from '../types/database.types';
+import { supabase } from '../supabase';
 type Settings = Database['public']['Tables']['settings']['Row'];
 
 export const getSettings = async () => {
