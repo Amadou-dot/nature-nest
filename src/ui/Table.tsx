@@ -1,12 +1,13 @@
-import { LoadingOverlay } from '@mantine/core';
+import { Box, Button, ButtonGroup, LoadingOverlay, Text } from '@mantine/core';
 import {
-    Cell,
-    ColumnDef,
-    getCoreRowModel,
-    Header,
-    useReactTable,
+  Cell,
+  ColumnDef,
+  getCoreRowModel,
+  getPaginationRowModel,
+  Header,
+  useReactTable,
 } from '@tanstack/react-table';
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import Empty from './Empty';
 type HeaderRowProps<T> = {
   data: Header<T, unknown>[];
@@ -26,6 +27,7 @@ interface TableProps<T> {
   sortValue?: string | null;
   sortKeyMap?: Record<string, keyof T>;
   isLoading?: boolean;
+  pageSize?: number;
   RowComponent: React.FC<HeaderRowProps<T> | DataRowProps<T>>;
 }
 
@@ -38,7 +40,9 @@ export default function Table<T extends { id: number }>({
   sortKeyMap,
   isLoading,
   RowComponent,
+  pageSize = 10,
 }: TableProps<T>) {
+  const [pageIndex, setPageIndex] = useState(0);
   // Filter data
   const filteredData = useMemo(() => {
     if (!data || !filterValue || !filterFn) return data;
@@ -71,28 +75,65 @@ export default function Table<T extends { id: number }>({
     data: sortedData || [],
     columns,
     getCoreRowModel: getCoreRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
+    onPaginationChange: updater => {
+      if (typeof updater === 'function') {
+        const newState = updater({ pageIndex, pageSize });
+        setPageIndex(newState.pageIndex);
+      }
+    },
+    state: {
+      pagination: {
+        pageSize,
+        pageIndex,
+      },
+    },
   });
 
   if (isLoading) return <LoadingOverlay visible />;
   if (!data || data.length === 0) return <Empty resourceName='items' />;
   return (
-    <table className='w-full max-w-[1400px] mx-auto h-full'>
-      <thead>
-        <RowComponent
-          data={table.getHeaderGroups()[0].headers}
-          rowType='header'
-        />
-      </thead>
-      <tbody>
-        {table.getRowModel().rows.map(row => (
+    <>
+      <table className='w-full max-w-[1400px] mx-auto h-full'>
+        <thead>
           <RowComponent
-            key={row.id}
-            data={row.getVisibleCells()}
-            rowType='data'
-            itemId={row.original.id}
+            data={table.getHeaderGroups()[0].headers}
+            rowType='header'
           />
-        ))}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          {table.getPaginationRowModel().rows.map(row => (
+            <RowComponent
+              key={row.id}
+              data={row.getVisibleCells()}
+              rowType='data'
+              itemId={row.original.id}
+            />
+          ))}
+        </tbody>
+      </table>
+
+      {table.getPageCount() > 1 && (
+        <Box component='footer' className='flex items-center mt-4 gap-2'>
+          <Text className='text-slate-600'>{`Page ${
+            table.getState().pagination.pageIndex + 1
+          } of ${table.getPageCount()}`}</Text>
+          <ButtonGroup>
+            <Button
+              color='violet'
+              onClick={() => table.previousPage()}
+              disabled={!table.getCanPreviousPage()}>
+              {'<'}
+            </Button>
+            <Button
+              color='violet'
+              onClick={() => table.nextPage()}
+              disabled={!table.getCanNextPage()}>
+              {'>'}
+            </Button>
+          </ButtonGroup>
+        </Box>
+      )}
+    </>
   );
 }
