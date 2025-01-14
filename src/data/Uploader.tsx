@@ -8,6 +8,7 @@ import { supabase } from "../supabase";
 import { bookings } from "./data-bookings";
 import { cabins } from "./data-cabins";
 import { guests } from "./data-guests";
+import { BOOKING_STATUS } from "../helpers/constants";
 
 // const originalSettings = {
 //   minBookingLength: 3,
@@ -69,19 +70,19 @@ async function createBookings() {
       isPast(new Date(booking.endDate)) &&
       !isToday(new Date(booking.endDate))
     )
-      status = "checked-out";
+      status = BOOKING_STATUS.checkedOut;
     if (
       isFuture(new Date(booking.startDate)) ||
       isToday(new Date(booking.startDate))
     )
-      status = "unconfirmed";
+      status = BOOKING_STATUS.unconfirmed;
     if (
       (isFuture(new Date(booking.endDate)) ||
         isToday(new Date(booking.endDate))) &&
       isPast(new Date(booking.startDate)) &&
       !isToday(new Date(booking.startDate))
     )
-      status = "checked-in";
+      status = BOOKING_STATUS.checkedIn;
 
     return {
       ...booking,

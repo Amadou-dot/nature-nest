@@ -3,6 +3,7 @@ import { useForm } from '@tanstack/react-form';
 import { useUpdateSettings } from './useUpdateSettings';
 import { useQuery } from '@tanstack/react-query';
 import { getSettings } from '../../services/apiSettings';
+import { COLORS, VALIDATION_MESSAGES } from '../../helpers/constants';
 
 export default function SettingsForm() {
   const {
@@ -43,7 +44,7 @@ export default function SettingsForm() {
         name='minBookingLength'
         validators={{
           onChange: ({ value }) => {
-            if (!value) return 'Minimum booking length is required';
+            if (!value) return VALIDATION_MESSAGES.required;
             if (value < 1) return 'Must be at least 1 night';
             return undefined;
           },
@@ -62,7 +63,7 @@ export default function SettingsForm() {
         name='maxBookingLength'
         validators={{
           onChange: ({ value }) => {
-            if (!value) return 'Maximum booking length is required';
+            if (!value) return VALIDATION_MESSAGES.required;
             if (value < 1) return 'Must be at least 1 night';
             return undefined;
           },
@@ -81,7 +82,7 @@ export default function SettingsForm() {
         name='maxGuestsPerBooking'
         validators={{
           onChange: ({ value }) => {
-            if (!value) return 'Maximum guests is required';
+            if (!value) return VALIDATION_MESSAGES.required;
             if (value < 1) return 'Must allow at least 1 guest';
             return undefined;
           },
@@ -101,7 +102,7 @@ export default function SettingsForm() {
         validators={{
           onChange: ({ value }) => {
             if (value < 0) return 'Price must be a positive number';
-            if (!value) return 'Breakfast price is required';
+            if (!value) return VALIDATION_MESSAGES.required;
             return undefined;
           },
         }}
@@ -114,7 +115,7 @@ export default function SettingsForm() {
           />
         )}
       />
-      <Button type='submit' color='#4338ca'>
+      <Button type='submit' color={COLORS.primary}>
         Save
       </Button>
     </form>

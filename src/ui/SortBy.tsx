@@ -1,5 +1,6 @@
 import { Select } from '@mantine/core';
 import { useSearchParams } from 'react-router-dom';
+import { COLORS } from '../helpers/constants';
 
 export default function SortBy({
   options,
@@ -19,12 +20,12 @@ export default function SortBy({
       styles={{
         input: {
           '&:focus': {
-            borderColor: '#4338ca',
-            boxShadow: '0 0 0 1px #4338ca',
+            borderColor: COLORS.primary,
+            boxShadow: `0 0 0 1px ${COLORS.primary}`,
           },
         },
         dropdown: {
-          borderColor: '#4338ca',
+          borderColor: COLORS.primary,
         },
       }}
       classNames={{

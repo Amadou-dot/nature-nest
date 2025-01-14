@@ -1,4 +1,5 @@
 import { differenceInDays, formatDistance, parseISO } from 'date-fns';
+import { BOOKING_STATUS, COLORS } from './constants';
 
 //Should work for both Date objects and strings (which come from Supabase)
 export const subtractDates = (
@@ -34,3 +35,26 @@ export const formatCurrency = (value: number) =>
   new Intl.NumberFormat('en', { style: 'currency', currency: 'USD' }).format(
     value
   );
+
+export const formatDate = (date: string, time?: boolean) => {
+  if (time)
+    return new Date(date).toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+    });
+  return new Date(date).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+  });
+};
+
+export const getBadgeColor = (status: string | null) => {
+  if (!status) return COLORS.gray;
+  if (status === BOOKING_STATUS.checkedIn) return COLORS.success; // teal-500
+  if (status === BOOKING_STATUS.unconfirmed) return COLORS.primary; // indigo-700
+  return COLORS.gray;
+};

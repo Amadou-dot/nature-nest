@@ -10,6 +10,7 @@ import {
 import { useCreateCabin } from '../../hooks/useCreateCabin';
 import { useUpdateCabin } from '../../hooks/useUpdateCabin';
 import { Database } from '../../types/database.types';
+import { COLORS, VALIDATION_MESSAGES } from '../../helpers/constants';
 type Cabin = Database['public']['Tables']['cabins']['Row'];
 
 type CabinFormProps =
@@ -134,7 +135,7 @@ export default function CabinForm(props: CabinFormProps) {
         name='description'
         validators={{
           onChange: ({ value }) => {
-            if (!value) return 'Description is required';
+            if (!value) return VALIDATION_MESSAGES.required;
             if (value.length > 500)
               return 'Description is too long (max 500 characters)';
             return undefined;
@@ -166,7 +167,7 @@ export default function CabinForm(props: CabinFormProps) {
           />
         )}
       />
-      <Button variant='filled' color='violet' type='submit' disabled={isBusy} loading={isBusy}>
+      <Button variant='filled' color={COLORS.primary}type='submit' disabled={isBusy} loading={isBusy}>
         Submit
       </Button>
     </form>

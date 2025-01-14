@@ -1,15 +1,16 @@
+import { Box } from '@mantine/core';
 import { useEffect, useRef, useState } from 'react';
 import { HiOutlineEllipsisVertical } from 'react-icons/hi2';
 import { useModal } from '../context/ModalContext';
-import { getCabinById } from '../services/apiCabins';
 import CabinDetails from '../features/cabins/CabinDetails';
 import CabinForm from '../features/cabins/CabinForm';
+import { getCabinById } from '../services/apiCabins';
 import { Database } from '../types/database.types';
 import ConfirmDelete from './ConfirmDelete';
 
 type Cabin = Database['public']['Tables']['cabins']['Row'];
 
-export default function ContextMenu({ cabinId }: { cabinId: number }) {
+export default function ContextMenu({ itemId }: { itemId: number }) {
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const { openModal } = useModal();
@@ -28,26 +29,26 @@ export default function ContextMenu({ cabinId }: { cabinId: number }) {
   }, []);
 
   return (
-    <div className='relative'>
+    <Box className='relative'>
       <HiOutlineEllipsisVertical
         size={24}
         className='cursor-pointer'
         onClick={() => setIsOpen(!isOpen)}
       />
       {isOpen && (
-        <div
+        <Box
           ref={menuRef}
           className='absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded shadow-lg z-50'>
           <ul className='py-1'>
             <li
               className='px-4 py-2 hover:bg-gray-100 cursor-pointer'
               onClick={async () => {
-                const cabinData = await getCabinById(cabinId);
+                const cabinData = await getCabinById(itemId);
                 openModal(
                   <CabinForm
                     mode='edit'
                     cabinData={(cabinData && cabinData) || ({} as Cabin)}
-                    cabinId={cabinId}
+                    cabinId={itemId}
                   />
                 );
                 setIsOpen(false);
@@ -57,7 +58,7 @@ export default function ContextMenu({ cabinId }: { cabinId: number }) {
             <li
               className='px-4 py-2 hover:bg-gray-100 cursor-pointer'
               onClick={() => {
-                openModal(<ConfirmDelete cabinId={cabinId} />);
+                openModal(<ConfirmDelete cabinId={itemId} />);
                 setIsOpen(false);
               }}>
               Delete
@@ -65,14 +66,14 @@ export default function ContextMenu({ cabinId }: { cabinId: number }) {
             <li
               className='px-4 py-2 hover:bg-gray-100 cursor-pointer'
               onClick={() => {
-                openModal(<CabinDetails cabinId={cabinId} />);
+                openModal(<CabinDetails cabinId={itemId} />);
                 setIsOpen(false);
               }}>
               View Details
             </li>
           </ul>
-        </div>
+        </Box>
       )}
-    </div>
+    </Box>
   );
 }

@@ -7,19 +7,14 @@ import {
 import { format, parseISO } from 'date-fns';
 import {
   formatDistanceFromNow,
+  getBadgeColor,
   subtractDates,
 } from '../../helpers/utilFunctions';
 import { useBookings } from '../../hooks/useBookings';
 import { BookingsData } from '../../types/bookings.types';
 import Table from '../../ui/Table';
 import BookingRow from './BookingRow';
-const getBadgeColor = (status: string | null) => {
-  const colors = { text: 'white', badge: 'gray' };
-  if (!status) return colors;
-  if (status === 'checked-in') colors.badge = 'teal';
-  if (status === 'unconfirmed') colors.badge = 'blue';
-  return colors;
-};
+
 const columnHelper = createColumnHelper<BookingsData>();
 const columns: ColumnDef<BookingsData, never>[] = [
   columnHelper.accessor('cabins.name', {
@@ -67,9 +62,7 @@ const columns: ColumnDef<BookingsData, never>[] = [
   columnHelper.accessor('status', {
     header: 'Status',
     cell: (props: CellContext<BookingsData, string | null>) => (
-      <Badge color={getBadgeColor(props.getValue()).badge}>
-        {props.getValue()}
-      </Badge>
+      <Badge color={getBadgeColor(props.getValue())}>{props.getValue()}</Badge>
     ),
   }),
   columnHelper.accessor('totalPrice', {
@@ -87,7 +80,6 @@ const columns: ColumnDef<BookingsData, never>[] = [
 const sortKeyMap = {
   id: 'id',
   startDate: 'startDate',
-  // Add more sort keys...
 } as const;
 
 export default function BookingTable() {

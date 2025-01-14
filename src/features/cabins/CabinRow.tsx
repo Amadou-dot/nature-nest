@@ -11,7 +11,7 @@ export default function CabinRow(props: RowProps<Cabin>) {
   ) : (
     <Row<Cabin>
       {...props}
-      contextMenu={<ContextMenu cabinId={Number(props.data[0].row.id)} />}
+      contextMenu={<ContextMenu itemId={Number(props.data[0].row.id)} />}
     />
   );
 }

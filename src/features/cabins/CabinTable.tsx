@@ -11,6 +11,7 @@ import { Database } from '../../types/database.types';
 import Table from '../../ui/Table';
 import CabinForm from './CabinForm';
 import CabinRow from './CabinRow';
+import { COLORS } from '../../helpers/constants';
 
 type Cabin = Database['public']['Tables']['cabins']['Row'];
 
@@ -96,7 +97,7 @@ export default function CabinTable() {
       />
       <Button
         variant='filled'
-        color='#4338ca'
+        color={COLORS.primary}
         size='md'
         onClick={() => openModal(<CabinForm mode='create' />)}>
         Add Cabin

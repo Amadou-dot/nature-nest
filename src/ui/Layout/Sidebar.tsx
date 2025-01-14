@@ -4,6 +4,7 @@ import { NavLink } from 'react-router-dom';
 import logo from '../../assets/logo-light.png';
 import MobileMenu from './MobileMenu';
 import Uploader from '../../data/Uploader';
+import { Box } from '@mantine/core';
 
 export default function Sidebar({ className }: { className: string }) {
 
@@ -16,12 +17,12 @@ export default function Sidebar({ className }: { className: string }) {
   ];
 
   return (
-    <aside className={`${className} md:bg-gray-50 md:w-44`}>
+    <Box component='aside' className={`${className} md:bg-gray-50 md:w-44`}>
       <MobileMenu links={links} />
       {/* desktop nav */}
-      <nav className='hidden md:block fixed md:relative top-0 left-0 h-full bg-gray-100 z-50 border-r border-gray-200'>
-        <div className='flex text-left w-36 flex-col text-gray-800 items-start gap-5 p-4'>
-          <img src={logo} alt='logo' className='w-24 mb-5 mt-5' />
+      <Box component='nav' className='hidden md:block fixed md:relative top-0 left-0 h-full bg-gray-100 z-50 border-r border-gray-200'>
+        <Box className='flex text-left w-36 flex-col text-gray-800 items-start gap-5 p-4'>
+          <Box component='img' src={logo} alt='logo' className='w-24 mb-5 mt-5' />
           {links.map((link) => (
             <NavLink
               key={link.to}
@@ -33,9 +34,9 @@ export default function Sidebar({ className }: { className: string }) {
               {link.icon} <span className='w-6 xl:text-xl'>{link.label}</span>
             </NavLink>
           ))}
-        </div>
+        </Box>
       <Uploader />
-      </nav>
-    </aside>
+      </Box>
+    </Box>
   );
 }

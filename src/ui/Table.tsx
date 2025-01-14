@@ -8,6 +8,7 @@ import {
   useReactTable,
 } from '@tanstack/react-table';
 import { useMemo, useState } from 'react';
+import { COLORS, PAGE_SIZES } from '../helpers/constants';
 import Empty from './Empty';
 type HeaderRowProps<T> = {
   data: Header<T, unknown>[];
@@ -40,7 +41,7 @@ export default function Table<T extends { id: number }>({
   sortKeyMap,
   isLoading,
   RowComponent,
-  pageSize = 10,
+  pageSize = PAGE_SIZES.medium,
 }: TableProps<T>) {
   const [pageIndex, setPageIndex] = useState(0);
   // Filter data
@@ -90,7 +91,7 @@ export default function Table<T extends { id: number }>({
     },
   });
 
-  if (isLoading) return <LoadingOverlay visible />;
+  if (isLoading) return <LoadingOverlay visible color={COLORS.primary} />;
   if (!data || data.length === 0) return <Empty resourceName='items' />;
   return (
     <>
@@ -120,13 +121,13 @@ export default function Table<T extends { id: number }>({
           } of ${table.getPageCount()}`}</Text>
           <ButtonGroup>
             <Button
-              color='violet'
+              color={COLORS.primary}
               onClick={() => table.previousPage()}
               disabled={!table.getCanPreviousPage()}>
               {'<'}
             </Button>
             <Button
-              color='violet'
+              color={COLORS.primary}
               onClick={() => table.nextPage()}
               disabled={!table.getCanNextPage()}>
               {'>'}

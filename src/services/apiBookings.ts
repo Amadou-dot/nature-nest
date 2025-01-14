@@ -3,8 +3,10 @@ import { getToday } from '../helpers/utilFunctions';
 import { supabase } from '../supabase';
 import { BookingsData } from '../types/bookings.types';
 import { Database } from '../types/database.types';
+import { ERROR_MESSAGES } from '../helpers/constants';
 type Booking = Database['public']['Tables']['bookings']['Row'];
-// type Sort = 'startDate-desc' | 'startDate-asc' | 'totalPrice-desc' | 'totalPrice-asc';
+type Cabin = Database['public']['Tables']['cabins']['Row'];
+type Guest = Database['public']['Tables']['guests']['Row'];
 export const getBookings = async ({
   filter,
   sortBy,
@@ -25,11 +27,11 @@ export const getBookings = async ({
 
   if (error) {
     notifications.show({
-      message: 'Error fetching bookings',
+      message: ERROR_MESSAGES.fetchBookings,
       color: 'red',
       position: 'top-center',
     });
-    throw new Error('Bookings could not get loaded');
+    throw new Error(ERROR_MESSAGES.fetchBookings);
   }
   return data as unknown as BookingsData[];
 };
@@ -46,7 +48,7 @@ export async function getBookingById(id: number) {
     throw new Error('Booking not found');
   }
 
-  return data;
+  return data as Booking & { cabins: Cabin; guests: Guest };
 }
 
 // Returns all BOOKINGS that are were created after the given date. Useful to get bookings created in the last 30 days
@@ -132,7 +134,7 @@ export async function updateBooking(id: number, obj: Partial<Booking>) {
 
   if (error) {
     console.error(error);
-    throw new Error('Booking could not be updated');
+    throw new Error(ERROR_MESSAGES.updateBooking);
   }
   return data;
 }
@@ -143,7 +145,7 @@ export async function deleteBooking(id: number) {
 
   if (error) {
     console.error(error);
-    throw new Error('Booking could not be deleted');
+    throw new Error(ERROR_MESSAGES.deleteBooking);
   }
   return data;
 }
