@@ -1,10 +1,10 @@
 import { Cell, Header } from '@tanstack/react-table';
-interface MenuAction {
+export interface MenuAction {
   icon?: React.ReactNode;
   label: string;
   onClick: () => void;
+  color?: string;
 }
-
 export type HeaderRowProps<T> = {
   data: Header<T, unknown>[];
   rowType: 'header';

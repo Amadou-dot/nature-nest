@@ -5,10 +5,9 @@ import { useModal } from '../context/ModalContext';
 import CabinDetails from '../features/cabins/CabinDetails';
 import CabinForm from '../features/cabins/CabinForm';
 import { getCabinById } from '../services/apiCabins';
-import { Database } from '../types/database.types';
+import { Cabin } from '../types/database.types';
 import ConfirmDelete from './ConfirmDelete';
 
-type Cabin = Database['public']['Tables']['cabins']['Row'];
 
 export default function ContextMenu({ itemId }: { itemId: number }) {
   const [isOpen, setIsOpen] = useState(false);

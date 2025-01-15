@@ -6,7 +6,7 @@ export function useBooking() {
   const { bookingId } = useParams();
   const id = parseInt(bookingId || '', 10);
   return useQuery({
-    queryKey: ['booking'],
+    queryKey: ['booking', bookingId],
     queryFn: () => getBookingById(id),
     retry: false,
   });

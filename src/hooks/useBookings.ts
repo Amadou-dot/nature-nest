@@ -1,8 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { useSearchParams } from 'react-router-dom';
 import { getBookings } from '../services/apiBookings';
-import { Database } from '../types/database.types';
-type Booking = Database['public']['Tables']['bookings']['Row'];
+import { Booking } from '../types/database.types';
 
 export const useBookings = () => {
   const [searchParams] = useSearchParams();

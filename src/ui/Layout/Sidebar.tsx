@@ -1,10 +1,9 @@
+import { Box } from '@mantine/core';
 import { HiOutlineHome, HiOutlineUsers } from 'react-icons/hi';
 import { HiOutlineAdjustmentsVertical, HiOutlineCalendarDays, HiOutlineHomeModern } from 'react-icons/hi2';
 import { NavLink } from 'react-router-dom';
 import logo from '../../assets/logo-light.png';
 import MobileMenu from './MobileMenu';
-import Uploader from '../../data/Uploader';
-import { Box } from '@mantine/core';
 
 export default function Sidebar({ className }: { className: string }) {
 
@@ -35,7 +34,7 @@ export default function Sidebar({ className }: { className: string }) {
             </NavLink>
           ))}
         </Box>
-      <Uploader />
+      {/* <Uploader /> */}
       </Box>
     </Box>
   );

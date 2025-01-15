@@ -1,7 +1,6 @@
-import { Database } from '../types/database.types';
+import { Cabin, Database } from '../types/database.types';
 import { supabase } from '../supabase';
 
-type Cabin = Database['public']['Tables']['cabins']['Row'];
 type CabinForm = Database['public']['Tables']['cabins']['Form'];
 type UpdateCabin = Partial<CabinForm> | { image?: string };
 const cabinBucketBaseUrl = import.meta.env.VITE_CABIN_BUCKET_URL_BASE as string;

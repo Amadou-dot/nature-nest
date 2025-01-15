@@ -1,6 +1,5 @@
-import { Database } from '../types/database.types';
 import { supabase } from '../supabase';
-type Settings = Database['public']['Tables']['settings']['Row'];
+import { Setting } from '../types/database.types';
 
 export const getSettings = async () => {
   const { data, error } = await supabase
@@ -9,10 +8,10 @@ export const getSettings = async () => {
     .limit(1)
     .single();
   if (error) throw new Error('Error fetching settings');
-  return data as Settings;
+  return data as Setting;
 };
 
-export const updateSettings = async (settings: Partial<Settings>) => {
+export const updateSettings = async (settings: Partial<Setting>) => {
   const { error } = await supabase
     .from('settings')
     .update(settings)

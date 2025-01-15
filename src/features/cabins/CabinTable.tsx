@@ -6,14 +6,13 @@ import {
 } from '@tanstack/react-table';
 import { useSearchParams } from 'react-router-dom';
 import { useModal } from '../../context/ModalContext';
+import { COLORS } from '../../helpers/constants';
 import { useCabins } from '../../hooks/useCabins';
-import { Database } from '../../types/database.types';
+import { Cabin } from '../../types/database.types';
 import Table from '../../ui/Table';
 import CabinForm from './CabinForm';
 import CabinRow from './CabinRow';
-import { COLORS } from '../../helpers/constants';
 
-type Cabin = Database['public']['Tables']['cabins']['Row'];
 
 const columnHelper = createColumnHelper<Cabin>();
 const columns: ColumnDef<Cabin, never>[] = [

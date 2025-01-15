@@ -1,3 +1,5 @@
+import { Box } from '@mantine/core';
+
 export default function PageNotFound() {
-  return <div>PageNotFound</div>;
+  return <Box>PageNotFound</Box>;
 }

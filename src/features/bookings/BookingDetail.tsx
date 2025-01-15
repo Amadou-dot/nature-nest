@@ -1,13 +1,14 @@
 import { Badge, Box, Button, LoadingOverlay, Text } from '@mantine/core';
-import { useNavigate } from 'react-router-dom';
 import { getBadgeColor } from '../../helpers/utilFunctions';
 import { useBooking } from '../../hooks/useBooking';
-import { COLORS } from '../../helpers/constants';
+import BackButton from '../../ui/BackButton';
 import BookingDataBox from './BookingDataBox';
+import { COLORS } from '../../helpers/constants';
+import { useNavigate } from 'react-router-dom';
 
 export default function BookingDetail() {
-  const navigate = useNavigate();
   const { data: booking, isPending, error } = useBooking();
+  const navigate = useNavigate()
   if (error) return <Text>Error: {error.message}</Text>;
   if (isPending) return <LoadingOverlay visible />;
   const { status, id:bookingId } = booking;
@@ -23,15 +24,13 @@ export default function BookingDetail() {
           </Badge>
         </Box>
         <Box>
-          <Button
-            color={COLORS.primary}
-            variant='transparent'
-            onClick={() => navigate(-1)}>
-            &#x2190; Back
-          </Button>
+          <BackButton />
         </Box>
       </Box>
       <BookingDataBox booking={booking} />
+      <Box className='flex justify-end'>
+        <Button color={COLORS.primary} onClick={() => navigate(`/check-in/${booking.id}`)}>Check in</Button>
+      </Box>
     </Box>
   );
 }

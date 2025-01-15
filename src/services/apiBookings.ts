@@ -1,12 +1,10 @@
 import { notifications } from '@mantine/notifications';
+import { ERROR_MESSAGES } from '../helpers/constants';
 import { getToday } from '../helpers/utilFunctions';
 import { supabase } from '../supabase';
 import { BookingsData } from '../types/bookings.types';
-import { Database } from '../types/database.types';
-import { ERROR_MESSAGES } from '../helpers/constants';
-type Booking = Database['public']['Tables']['bookings']['Row'];
-type Cabin = Database['public']['Tables']['cabins']['Row'];
-type Guest = Database['public']['Tables']['guests']['Row'];
+import { Booking, Cabin, Guest } from '../types/database.types';
+
 export const getBookings = async ({
   filter,
   sortBy,
@@ -136,7 +134,7 @@ export async function updateBooking(id: number, obj: Partial<Booking>) {
     console.error(error);
     throw new Error(ERROR_MESSAGES.updateBooking);
   }
-  return data;
+  return data as Booking;
 }
 
 export async function deleteBooking(id: number) {

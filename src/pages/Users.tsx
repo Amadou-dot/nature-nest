@@ -1,3 +1,5 @@
+import { Box } from '@mantine/core';
+
 export default function Users() {
-  return <div>Users</div>;
+  return <Box>Users</Box>;
 }

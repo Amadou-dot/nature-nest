@@ -1,3 +1,5 @@
+import { Box } from '@mantine/core';
+
 export default function Dashboard() {
-  return <div>Dashboard</div>;
+  return <Box>Dashboard</Box>;
 }

@@ -1,21 +1,13 @@
 import { Button, LoadingOverlay, NumberInput } from '@mantine/core';
 import { useForm } from '@tanstack/react-form';
-import { useUpdateSettings } from './useUpdateSettings';
-import { useQuery } from '@tanstack/react-query';
-import { getSettings } from '../../services/apiSettings';
 import { COLORS, VALIDATION_MESSAGES } from '../../helpers/constants';
+import { useSettings } from '../../hooks/useSettings';
+import { useUpdateSettings } from './useUpdateSettings';
 
 export default function SettingsForm() {
-  const {
-    mutate: updateSettingsMutation,
-    error: updateError,
-    isPending: isUpdating,
-  } = useUpdateSettings();
-  const {
-    data: settings,
-    error,
-    isPending,
-  } = useQuery({ queryKey: ['settings'], queryFn: getSettings });
+  const { mutate: updateSettingsMutation, error: updateError, isPending: isUpdating} = useUpdateSettings();
+  const { data: settings, isPending, error } = useSettings();
+  
   if (updateError) new Error(error?.message);
   if (error) throw new Error('Error fetching settings');
 
@@ -27,7 +19,7 @@ export default function SettingsForm() {
       breakfastPrice: settings?.breakfastPrice || 15,
     },
     onSubmit: async ({ value: settings }) => {
-        console.log(settings);
+      console.log(settings);
       updateSettingsMutation(settings);
     },
   });
@@ -36,10 +28,11 @@ export default function SettingsForm() {
   return (
     <form
       className='space-y-4'
-      onSubmit={e => {
+      onSubmit={(e) => {
         e.preventDefault();
         handleSubmit();
-      }}>
+      }}
+    >
       <Field
         name='minBookingLength'
         validators={{
@@ -49,11 +42,11 @@ export default function SettingsForm() {
             return undefined;
           },
         }}
-        children={field => (
+        children={(field) => (
           <NumberInput
             label='Minimum Booking Length'
             value={field.state.value}
-            onChange={value => field.handleChange(Number(value))}
+            onChange={(value) => field.handleChange(Number(value))}
             error={field.state.meta.errors[0]}
           />
         )}
@@ -68,11 +61,11 @@ export default function SettingsForm() {
             return undefined;
           },
         }}
-        children={field => (
+        children={(field) => (
           <NumberInput
             label='Maximum Booking Length'
             value={field.state.value}
-            onChange={value => field.handleChange(Number(value))}
+            onChange={(value) => field.handleChange(Number(value))}
             error={field.state.meta.errors[0]}
           />
         )}
@@ -87,11 +80,11 @@ export default function SettingsForm() {
             return undefined;
           },
         }}
-        children={field => (
+        children={(field) => (
           <NumberInput
             label='Maximum Guests Per Booking'
             value={field.state.value}
-            onChange={value => field.handleChange(Number(value))}
+            onChange={(value) => field.handleChange(Number(value))}
             error={field.state.meta.errors[0]}
           />
         )}
@@ -106,11 +99,11 @@ export default function SettingsForm() {
             return undefined;
           },
         }}
-        children={field => (
+        children={(field) => (
           <NumberInput
             label='Breakfast Price'
             value={field.state.value}
-            onChange={value => field.handleChange(Number(value))}
+            onChange={(value) => field.handleChange(Number(value))}
             error={field.state.meta.errors[0]}
           />
         )}

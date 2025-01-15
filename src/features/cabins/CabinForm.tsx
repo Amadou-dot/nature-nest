@@ -1,6 +1,7 @@
 import { Button, FileInput, Textarea, TextInput } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
 import { useForm } from '@tanstack/react-form';
+import { COLORS, VALIDATION_MESSAGES } from '../../helpers/constants';
 import {
   validateDiscount,
   validateMaxCapacity,
@@ -9,9 +10,7 @@ import {
 } from '../../helpers/validators';
 import { useCreateCabin } from '../../hooks/useCreateCabin';
 import { useUpdateCabin } from '../../hooks/useUpdateCabin';
-import { Database } from '../../types/database.types';
-import { COLORS, VALIDATION_MESSAGES } from '../../helpers/constants';
-type Cabin = Database['public']['Tables']['cabins']['Row'];
+import { Cabin } from '../../types/database.types';
 
 type CabinFormProps =
   | { mode: 'create' }
