@@ -5,9 +5,13 @@ import { useSettings } from '../../hooks/useSettings';
 import { useUpdateSettings } from './useUpdateSettings';
 
 export default function SettingsForm() {
-  const { mutate: updateSettingsMutation, error: updateError, isPending: isUpdating} = useUpdateSettings();
+  const {
+    mutate: updateSettingsMutation,
+    error: updateError,
+    isPending: isUpdating,
+  } = useUpdateSettings();
   const { data: settings, isPending, error } = useSettings();
-  
+
   if (updateError) new Error(error?.message);
   if (error) throw new Error('Error fetching settings');
 
@@ -19,7 +23,6 @@ export default function SettingsForm() {
       breakfastPrice: settings?.breakfastPrice || 15,
     },
     onSubmit: async ({ value: settings }) => {
-      console.log(settings);
       updateSettingsMutation(settings);
     },
   });

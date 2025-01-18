@@ -1,9 +1,9 @@
 import { notifications } from '@mantine/notifications';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
-import { COLORS } from '../../helpers/constants';
-import { updateBooking } from '../../services/apiBookings';
-import { Booking } from '../../types/database.types';
+import { COLORS } from '../helpers/constants';
+import { updateBooking } from '../services/apiBookings';
+import { Booking } from '../types/database.types';
 type MutationProps = {
   bookingId: number;
   bookingObj?: Partial<Booking>;

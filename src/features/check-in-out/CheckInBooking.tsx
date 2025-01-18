@@ -4,11 +4,11 @@ import { useNavigate } from 'react-router-dom';
 import { COLORS } from '../../helpers/constants';
 import { formatCurrency } from '../../helpers/utilFunctions';
 import { useBooking } from '../../hooks/useBooking';
+import { useCheckIn } from '../../hooks/useCheckIn';
 import { useSettings } from '../../hooks/useSettings';
+import { Booking } from '../../types/database.types';
 import PageHeading from '../../ui/PageHeading';
 import BookingDataBox from '../bookings/BookingDataBox';
-import { useCheckIn } from './useCheckIn';
-import { Booking } from '../../types/database.types';
 
 export default function CheckInBooking() {
   const navigate = useNavigate();
@@ -43,10 +43,10 @@ export default function CheckInBooking() {
 
     if (includeBreakfast) {
       const bookingObj = {
-        hasBreakfast:true,
-        extrasPrice:optionalBreakfastPrice,
+        hasBreakfast: true,
+        extrasPrice: optionalBreakfastPrice,
         totalPrice: totalPrice! + optionalBreakfastPrice,
-      } as Partial<Booking>
+      } as Partial<Booking>;
       checkIn({ bookingId, bookingObj });
     } else checkIn({ bookingId });
   };
