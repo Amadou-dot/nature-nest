@@ -2,7 +2,7 @@ import { LoadingOverlay } from '@mantine/core';
 import { HiArrowDownOnSquare, HiArrowUpOnSquare, HiEye } from 'react-icons/hi2';
 import { useNavigate } from 'react-router-dom';
 import { COLORS } from '../../helpers/constants';
-import { useCheckOut } from '../../hooks/useCheckout';
+import { useCheckOut } from '../../hooks/useCheckOut';
 import { BookingsData } from '../../types/bookings.types';
 import { RowProps } from '../../types/table.types';
 import Row from '../../ui/Row';

@@ -1,9 +1,10 @@
+export const PREFERS_DARK_SCHEME = window.matchMedia('(prefers-color-scheme: dark)').matches;
 // Color constants used throughout the app
 export const COLORS = {
-  primary: '#4338ca', // indigo-700
-  success: '#14b8a6', // teal-500
-  danger: '#ef4444',  // red-500
-  gray: '#6b7280',    // gray-500
+  primary: PREFERS_DARK_SCHEME ? '#3730a3': '#e0e7ff',
+  success: PREFERS_DARK_SCHEME ? '#166534' : '#dcfce7',
+  danger: PREFERS_DARK_SCHEME ? '#b91c1c' : '#fee2e2',
+  gray: '#9ca3af',
 } as const;
 
 // Status options for bookings

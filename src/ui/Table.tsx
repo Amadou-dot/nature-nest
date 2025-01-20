@@ -77,7 +77,7 @@ export default function Table<T extends { id: number }>({
     columns,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
-    onPaginationChange: updater => {
+    onPaginationChange: (updater) => {
       if (typeof updater === 'function') {
         const newState = updater({ pageIndex, pageSize });
         setPageIndex(newState.pageIndex);
@@ -95,15 +95,15 @@ export default function Table<T extends { id: number }>({
   if (!data || data.length === 0) return <Empty resourceName='items' />;
   return (
     <>
-      <table className='w-full max-w-[1400px] mx-auto h-full'>
-        <thead>
+      <table className='text-light-gray-800 dark:text-dark-gray-800 mx-auto h-full w-full max-w-[1400px]'>
+        <thead className='md:text-xl'>
           <RowComponent
             data={table.getHeaderGroups()[0].headers}
             rowType='header'
           />
         </thead>
         <tbody>
-          {table.getPaginationRowModel().rows.map(row => (
+          {table.getPaginationRowModel().rows.map((row) => (
             <RowComponent
               key={row.id}
               data={row.getVisibleCells()}
@@ -115,21 +115,23 @@ export default function Table<T extends { id: number }>({
       </table>
 
       {table.getPageCount() > 1 && (
-        <Box component='footer' className='flex items-center mt-4 gap-2'>
-          <Text className='text-slate-600'>{`Page ${
+        <Box component='footer' className='mt-4 flex items-center gap-2'>
+          <Text className='text-light-gray-800 dark:text-dark-gray-800'>{`Page ${
             table.getState().pagination.pageIndex + 1
           } of ${table.getPageCount()}`}</Text>
           <ButtonGroup>
             <Button
               color={COLORS.primary}
               onClick={() => table.previousPage()}
-              disabled={!table.getCanPreviousPage()}>
+              disabled={!table.getCanPreviousPage()}
+            >
               {'<'}
             </Button>
             <Button
               color={COLORS.primary}
               onClick={() => table.nextPage()}
-              disabled={!table.getCanNextPage()}>
+              disabled={!table.getCanNextPage()}
+            >
               {'>'}
             </Button>
           </ButtonGroup>

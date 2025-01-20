@@ -1,4 +1,5 @@
 import { Button, NumberFormatter } from '@mantine/core';
+import { useMediaQuery } from '@mantine/hooks';
 import {
   CellContext,
   ColumnDef,
@@ -13,9 +14,8 @@ import Table from '../../ui/Table';
 import CabinForm from './CabinForm';
 import CabinRow from './CabinRow';
 
-
 const columnHelper = createColumnHelper<Cabin>();
-const columns: ColumnDef<Cabin, never>[] = [
+const desktopColumns: ColumnDef<Cabin, never>[] = [
   columnHelper.accessor('image', {
     header: 'Image',
     cell: (props: CellContext<Cabin, string>) => (
@@ -57,7 +57,27 @@ const columns: ColumnDef<Cabin, never>[] = [
     ),
   }),
 ];
+const mobileColumns:ColumnDef<Cabin, never>[] = [
+  columnHelper.accessor('name', {
+    header: 'Name',
+    cell: props => <>{props.getValue()}</>,
+  }),
+  columnHelper.accessor('maxCapacity', {
+    header: 'Capacity',
+    cell: props => <NumberFormatter value={props.getValue()} />,
+  }),
+  columnHelper.accessor('regularPrice', {
+    header: 'Price',
+    cell: props => (
+      <NumberFormatter
+        prefix='$'
+        value={props.getValue() || NaN}
+        thousandSeparator
+      />
+    ),
+  }),
 
+];
 const sortKeyMap = {
   name: 'name',
   regularPrice: 'regularPrice',
@@ -65,6 +85,7 @@ const sortKeyMap = {
 } as const;
 
 export default function CabinTable() {
+  const isMobile = useMediaQuery('(max-width: 550px)');
   const { openModal } = useModal();
   const [searchParams] = useSearchParams();
   const filterValue = searchParams.get('filter');
@@ -86,7 +107,7 @@ export default function CabinTable() {
     <div className='w-full overflow-x-auto px-4'>
       <Table<Cabin>
         data={cabins}
-        columns={columns as ColumnDef<Cabin, unknown>[]}
+        columns={isMobile ? mobileColumns as ColumnDef<Cabin, unknown>[]: desktopColumns as ColumnDef<Cabin, unknown>[]}
         filterValue={filterValue}
         filterFn={filterFn}
         sortValue={sortValue}

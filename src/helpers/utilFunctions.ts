@@ -54,7 +54,7 @@ export const formatDate = (date: string, time?: boolean) => {
 
 export const getBadgeColor = (status: string | null) => {
   if (!status) return COLORS.gray;
-  if (status === BOOKING_STATUS.checkedIn) return COLORS.success; // teal-500
-  if (status === BOOKING_STATUS.unconfirmed) return COLORS.primary; // indigo-700
+  if (status === BOOKING_STATUS.checkedIn) return COLORS.success; 
+  if (status === BOOKING_STATUS.unconfirmed) return COLORS.primary;
   return COLORS.gray;
 };

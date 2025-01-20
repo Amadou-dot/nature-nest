@@ -2,7 +2,7 @@ import { Box } from '@mantine/core';
 import { HiOutlineHome, HiOutlineUsers } from 'react-icons/hi';
 import { HiOutlineAdjustmentsVertical, HiOutlineCalendarDays, HiOutlineHomeModern } from 'react-icons/hi2';
 import { NavLink } from 'react-router-dom';
-import logo from '../../assets/logo-light.png';
+import logoLight from '../../assets/logo-light.png';
 import MobileMenu from './MobileMenu';
 
 export default function Sidebar({ className }: { className: string }) {
@@ -21,7 +21,7 @@ export default function Sidebar({ className }: { className: string }) {
       {/* desktop nav */}
       <Box component='nav' className='hidden md:block fixed md:relative top-0 left-0 h-full bg-gray-100 z-50 border-r border-gray-200'>
         <Box className='flex text-left w-36 flex-col text-gray-800 items-start gap-5 p-4'>
-          <Box component='img' src={logo} alt='logo' className='w-24 mb-5 mt-5' />
+          <Box component='img' src={ logoLight} alt='logo' className='w-24 mb-5 mt-5' />
           {links.map((link) => (
             <NavLink
               key={link.to}
@@ -34,7 +34,7 @@ export default function Sidebar({ className }: { className: string }) {
             </NavLink>
           ))}
         </Box>
-      {/* <Uploader /> */}
+        {/* <Uploader /> */}
       </Box>
     </Box>
   );

@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { COLORS } from '../../helpers/constants';
 import { getBadgeColor } from '../../helpers/utilFunctions';
 import { useBooking } from '../../hooks/useBooking';
-import { useCheckOut } from '../../hooks/useCheckout';
+import { useCheckOut } from '../../hooks/useCheckOut';
 import BackButton from '../../ui/BackButton';
 import BookingDataBox from './BookingDataBox';
 
