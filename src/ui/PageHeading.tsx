@@ -1,13 +1,7 @@
-import { Box, Text } from '@mantine/core';
-import BackButton from './BackButton';
-
 export default function PageHeading({ text }: { text: string }) {
   return (
-    <Box className='flex items-center justify-between'>
-      <Text component='h1' className='text-2xl font-bold text-slate-700'>
-        {text}
-      </Text>
-      <BackButton />
-    </Box>
+    <h1 className='text-grey-800 dark:text-dark-grey-700 text-center md:text-left md:text-2xl lg:text-3xl'>
+      {text}
+    </h1>
   );
 }

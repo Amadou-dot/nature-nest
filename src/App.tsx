@@ -5,9 +5,10 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { lazy, Suspense } from 'react';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { ModalProvider } from './context/ModalContext';
-import AppLayout from './ui/Layout/AppLayout';
 import BookingDetails from './pages/BookingDetails';
 import CheckIn from './pages/CheckIn';
+import { customTheme } from './theme';
+import AppLayout from './ui/Layout/AppLayout';
 
 const Bookings = lazy(() => import('./pages/Bookings'));
 const Cabins = lazy(() => import('./pages/Cabins'));
@@ -23,29 +24,33 @@ const queryClient = new QueryClient({
     },
   },
 });
+// mantine-color-scheme-value
 export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <MantineProvider>
+      <MantineProvider theme={{ ...customTheme }} defaultColorScheme='auto'>
         <Notifications />
         <ModalProvider>
-            <BrowserRouter>
-              <Suspense fallback={<LoadingOverlay visible />}>
-                <Routes>
-                  <Route element={<AppLayout />}>
-                    <Route index element={<Navigate replace to='/dashboard' />}/>
-                    <Route path='/dashboard' element={<Dashboard />} />
-                    <Route path='/bookings' element={<Bookings />} />
-                    <Route path='/bookings/:bookingId' element={<BookingDetails />} />
-                    <Route path='/check-in/:bookingId' element={<CheckIn />} />
-                    <Route path='/cabins' element={<Cabins />} />
-                    <Route path='/users' element={<Users />} />
-                    <Route path='/settings' element={<Settings />} />
-                    <Route path='*' element={<PageNotFound />} />
-                  </Route>
-                </Routes>
-              </Suspense>
-            </BrowserRouter>
+          <BrowserRouter>
+            <Suspense fallback={<LoadingOverlay visible />}>
+              <Routes>
+                <Route element={<AppLayout />}>
+                  <Route index element={<Navigate replace to='/dashboard' />} />
+                  <Route path='/dashboard' element={<Dashboard />} />
+                  <Route path='/bookings' element={<Bookings />} />
+                  <Route
+                    path='/bookings/:bookingId'
+                    element={<BookingDetails />}
+                  />
+                  <Route path='/check-in/:bookingId' element={<CheckIn />} />
+                  <Route path='/cabins' element={<Cabins />} />
+                  <Route path='/users' element={<Users />} />
+                  <Route path='/settings' element={<Settings />} />
+                  <Route path='*' element={<PageNotFound />} />
+                </Route>
+              </Routes>
+            </Suspense>
+          </BrowserRouter>
         </ModalProvider>
       </MantineProvider>
       <ReactQueryDevtools initialIsOpen={false} />

@@ -8,7 +8,7 @@ import {
   useReactTable,
 } from '@tanstack/react-table';
 import { useMemo, useState } from 'react';
-import { COLORS, PAGE_SIZES } from '../helpers/constants';
+import { COLORS, MAX_WIDTH, PAGE_SIZES } from '../helpers/constants';
 import Empty from './Empty';
 type HeaderRowProps<T> = {
   data: Header<T, unknown>[];
@@ -41,7 +41,7 @@ export default function Table<T extends { id: number }>({
   sortKeyMap,
   isLoading,
   RowComponent,
-  pageSize = PAGE_SIZES.medium,
+  pageSize = PAGE_SIZES.md,
 }: TableProps<T>) {
   const [pageIndex, setPageIndex] = useState(0);
   // Filter data
@@ -95,14 +95,14 @@ export default function Table<T extends { id: number }>({
   if (!data || data.length === 0) return <Empty resourceName='items' />;
   return (
     <>
-      <table className='text-light-gray-800 dark:text-dark-gray-800 mx-auto h-full w-full max-w-[1400px]'>
-        <thead className='md:text-xl'>
+      <table className={`mx-auto h-full w-full max-w-[1400px]`}>
+        <thead className='text-grey-800 dark:text-dark-grey-700 md:text-xl'>
           <RowComponent
             data={table.getHeaderGroups()[0].headers}
             rowType='header'
           />
         </thead>
-        <tbody>
+        <tbody className='text-grey-800 dark:text-dark-grey-500'>
           {table.getPaginationRowModel().rows.map((row) => (
             <RowComponent
               key={row.id}
@@ -115,22 +115,25 @@ export default function Table<T extends { id: number }>({
       </table>
 
       {table.getPageCount() > 1 && (
-        <Box component='footer' className='mt-4 flex items-center gap-2'>
-          <Text className='text-light-gray-800 dark:text-dark-gray-800'>{`Page ${
+        <Box
+          component='footer'
+          className={`mx-auto mt-4 flex max-w-[${MAX_WIDTH}px] items-center gap-2`}
+        >
+          <Text className='text-grey-800 dark:text-dark-grey-700'>{`Page ${
             table.getState().pagination.pageIndex + 1
           } of ${table.getPageCount()}`}</Text>
           <ButtonGroup>
             <Button
-              color={COLORS.primary}
               onClick={() => table.previousPage()}
               disabled={!table.getCanPreviousPage()}
+              className='dark:bg-brand-600 dark:text-dark-grey-700 disabled:cursor-not-allowed disabled:opacity-50'
             >
               {'<'}
             </Button>
             <Button
-              color={COLORS.primary}
               onClick={() => table.nextPage()}
               disabled={!table.getCanNextPage()}
+              className='dark:bg-brand-600 dark:text-dark-grey-700 disabled:cursor-not-allowed disabled:opacity-50'
             >
               {'>'}
             </Button>

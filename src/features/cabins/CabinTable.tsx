@@ -1,83 +1,23 @@
-import { Button, NumberFormatter } from '@mantine/core';
+import { Button } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
-import {
-  CellContext,
-  ColumnDef,
-  createColumnHelper,
-} from '@tanstack/react-table';
+import { ColumnDef } from '@tanstack/react-table';
 import { useSearchParams } from 'react-router-dom';
 import { useModal } from '../../context/ModalContext';
-import { COLORS } from '../../helpers/constants';
+import {
+  MOBILE_MAX_WIDTH,
+  PAGE_SIZES,
+  TABLET_MAX_WIDTH,
+} from '../../helpers/constants';
 import { useCabins } from '../../hooks/useCabins';
 import { Cabin } from '../../types/database.types';
 import Table from '../../ui/Table';
 import CabinForm from './CabinForm';
 import CabinRow from './CabinRow';
+import {
+  desktopCabinColumns,
+  mobileCabinColumns,
+} from './ResponsiveCabinColumns';
 
-const columnHelper = createColumnHelper<Cabin>();
-const desktopColumns: ColumnDef<Cabin, never>[] = [
-  columnHelper.accessor('image', {
-    header: 'Image',
-    cell: (props: CellContext<Cabin, string>) => (
-      <img
-        src={props?.getValue()}
-        alt='Cabin'
-        className='w-24 h-16 object-cover'
-      />
-    ),
-  }),
-  columnHelper.accessor('name', {
-    header: 'Name',
-    cell: props => <>{props.getValue()}</>,
-  }),
-  columnHelper.accessor('maxCapacity', {
-    header: 'Capacity',
-    cell: props => <NumberFormatter value={props.getValue()} />,
-  }),
-  columnHelper.accessor('regularPrice', {
-    header: 'Price',
-    cell: props => (
-      <NumberFormatter
-        prefix='$'
-        value={props.getValue() || NaN}
-        thousandSeparator
-      />
-    ),
-  }),
-  columnHelper.accessor('discount', {
-    header: 'Discount',
-    cell: props => (
-      <>
-        {!props.getValue() || props.getValue() === 0 ? (
-          '\u2014'
-        ) : (
-          <span className='text-green-600'>{`${props.getValue()}%`}</span>
-        )}
-      </>
-    ),
-  }),
-];
-const mobileColumns:ColumnDef<Cabin, never>[] = [
-  columnHelper.accessor('name', {
-    header: 'Name',
-    cell: props => <>{props.getValue()}</>,
-  }),
-  columnHelper.accessor('maxCapacity', {
-    header: 'Capacity',
-    cell: props => <NumberFormatter value={props.getValue()} />,
-  }),
-  columnHelper.accessor('regularPrice', {
-    header: 'Price',
-    cell: props => (
-      <NumberFormatter
-        prefix='$'
-        value={props.getValue() || NaN}
-        thousandSeparator
-      />
-    ),
-  }),
-
-];
 const sortKeyMap = {
   name: 'name',
   regularPrice: 'regularPrice',
@@ -85,7 +25,8 @@ const sortKeyMap = {
 } as const;
 
 export default function CabinTable() {
-  const isMobile = useMediaQuery('(max-width: 550px)');
+  const isMobile = useMediaQuery(`(max-width: ${MOBILE_MAX_WIDTH}px)`);
+  const isTablet = useMediaQuery(`(max-width: ${TABLET_MAX_WIDTH}px)`);
   const { openModal } = useModal();
   const [searchParams] = useSearchParams();
   const filterValue = searchParams.get('filter');
@@ -102,26 +43,36 @@ export default function CabinTable() {
       return !cabin.discount || cabin.discount === 0;
     return true;
   };
+  const columns = isMobile
+    ? (mobileCabinColumns as ColumnDef<Cabin, unknown>[])
+    : (desktopCabinColumns as ColumnDef<Cabin, unknown>[]);
+  const pageSize = isMobile
+    ? PAGE_SIZES.xs
+    : isTablet
+      ? PAGE_SIZES.sm
+      : PAGE_SIZES.md;
 
   return (
-    <div className='w-full overflow-x-auto px-4'>
+    <>
       <Table<Cabin>
         data={cabins}
-        columns={isMobile ? mobileColumns as ColumnDef<Cabin, unknown>[]: desktopColumns as ColumnDef<Cabin, unknown>[]}
+        columns={columns}
         filterValue={filterValue}
         filterFn={filterFn}
         sortValue={sortValue}
         sortKeyMap={sortKeyMap}
         isLoading={isPending}
         RowComponent={CabinRow}
+        pageSize={pageSize}
       />
       <Button
+        className='mt-4 dark:bg-brand-600'
         variant='filled'
-        color={COLORS.primary}
         size='md'
-        onClick={() => openModal(<CabinForm mode='create' />)}>
+        onClick={() => openModal(<CabinForm mode='create' />)}
+      >
         Add Cabin
       </Button>
-    </div>
+    </>
   );
 }

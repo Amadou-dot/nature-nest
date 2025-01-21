@@ -1,4 +1,7 @@
-export const PREFERS_DARK_SCHEME = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+export const PREFERS_DARK_SCHEME = localStorage.getItem('mantine-color-scheme-value') === 'dark';
+/** Max width for the app layout (px) */
+export const MAX_WIDTH = 1400;
 // Color constants used throughout the app
 export const COLORS = {
   primary: PREFERS_DARK_SCHEME ? '#3730a3': '#e0e7ff',
@@ -7,21 +10,29 @@ export const COLORS = {
   gray: '#9ca3af',
 } as const;
 
-// Status options for bookings
+/**Max width the app considers a mobile device*/
+export const MOBILE_MAX_WIDTH = 550
+/**Max width the app considers a tablet*/
+export const TABLET_MAX_WIDTH = 768
+/**Max width the app considers a large tablet. Right below a laptop*/
+export const LARGE_TABLET_MAX_WIDTH = 1024
+
+/** Booking status options */
 export const BOOKING_STATUS = {
   unconfirmed: 'unconfirmed',
   checkedIn: 'checked-in',
   checkedOut: 'checked-out',
 } as const;
 
-// Default table page sizes 
+/** Default page sizes for table */
 export const PAGE_SIZES = {
-  small: 5,
-  medium: 10,
-  large: 20,
+  xs: 5,
+  sm: 7,
+  md: 10,
+  lg: 20,
 } as const;
 
-// API error messages
+/** API error messages */
 export const ERROR_MESSAGES = {
   fetchBookings: 'Error fetching bookings',
   fetchCabins: 'Error fetching cabins',
@@ -29,7 +40,7 @@ export const ERROR_MESSAGES = {
   deleteBooking: 'Error deleting booking',
 } as const;
 
-// Form validation messages
+/** Form validation messages */
 export const VALIDATION_MESSAGES = {
   required: 'This field is required',
   invalidEmail: 'Please enter a valid email',

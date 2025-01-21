@@ -1,8 +1,8 @@
 import { Box, Image, Text } from '@mantine/core';
 import { HiOutlineCheckCircle } from 'react-icons/hi';
 import {
-  HiMiniXMark,
   HiOutlineChatBubbleBottomCenterText,
+  HiOutlineXMark,
 } from 'react-icons/hi2';
 import { BookingProp } from '../../types/database.types';
 
@@ -13,36 +13,64 @@ export default function GuestInfo({ booking }: BookingProp) {
 
   return (
     <Box>
-        {/*//? Guest info */}
-      <Box className='flex items-center gap-2'>
-        <Text component='span' className='flex items-center gap-2 font-semibold'>
-          {countryFlag && (<Image src={countryFlag} alt={`${nationality} flag`} className='h-6 w-6' /> )}
+      {/*//? Guest info */}
+      <Box className='flex flex-col items-center gap-2 md:flex-row'>
+        <Text
+          component='span'
+          className='flex items-center gap-2 font-semibold'
+        >
+          {countryFlag && (
+            <Image
+              src={countryFlag}
+              alt={`${nationality} flag`}
+              className='h-6 w-6'
+            />
+          )}
           {`${fullName} ${maxCapacity && maxCapacity > 1 ? `+ ${maxCapacity - 1} guests` : ''}`}
         </Text>
-        
-        <Text component='span' className='text-slate-500'>
-            &bull; {email}
+
+        <Text
+          component='span'
+          className='text-grey-500 dark:text-dark-grey-500 flex gap-2'
+        >
+          <Text className='hidden md:block'>&bull;</Text> <Text>{email}</Text>
         </Text>
 
-        <Text component='span' className='text-slate-500'>
-            &bull; National ID: {nationalID}
+        <Text
+          component='span'
+          className='text-grey-500 dark:text-dark-grey-500 flex gap-2'
+        >
+          <Text className='hidden md:block'>&bull;</Text>{' '}
+          <Text> National ID: {nationalID}</Text>
         </Text>
       </Box>
 
       {/*//? user notes */}
-      <Text className='mt-5 flex items-center gap-2'>
-        <HiOutlineChatBubbleBottomCenterText />
-        <Text component='span' className='font-semibold'>User Note</Text>
-        <Text component='span' className='text-slate-600'>{userNotes}</Text>
-      </Text>
-      
-      {/*//? Breakfast included */}
-      <Text className='mt-5 flex items-center gap-2 font-semibold'>
-        {hasBreakfast ? ( <HiOutlineCheckCircle size={20} />) : ( <HiMiniXMark size={20} /> )}
-        Breakfast included?
-        <Text component='span' className='text-slate-600'>
-          {hasBreakfast ? 'Yes' : 'No'}
+      {userNotes && (
+        <Text className='mt-5 flex flex-col items-center gap-2 md:flex-row'>
+          <Text
+            component='span'
+            className='flex items-center gap-2 font-semibold'
+          >
+            <HiOutlineChatBubbleBottomCenterText className='dark:text-dark-yellow-100' />
+            User Note
+          </Text>
+          <Text component='span' className='text-center'>{userNotes}</Text>
         </Text>
+      )}
+
+      {/*//? Breakfast included */}
+      <Text className='mt-5 flex items-center gap-2 font-semibold justify-center md:justify-start'>
+        {hasBreakfast ? (
+          <HiOutlineCheckCircle
+            size={20}
+            className='dark:text-dark-yellow-100'
+          />
+        ) : (
+          <HiOutlineXMark size={20} className='dark:text-dark-yellow-100' />
+        )}
+        Breakfast included?
+        <Text component='span'>{hasBreakfast ? 'Yes' : 'No'}</Text>
       </Text>
     </Box>
   );

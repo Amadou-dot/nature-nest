@@ -1,10 +1,10 @@
 import { Badge, Box, Button, LoadingOverlay, Text } from '@mantine/core';
 import { useNavigate } from 'react-router-dom';
-import { COLORS } from '../../helpers/constants';
 import { getBadgeColor } from '../../helpers/utilFunctions';
 import { useBooking } from '../../hooks/useBooking';
 import { useCheckOut } from '../../hooks/useCheckOut';
 import BackButton from '../../ui/BackButton';
+import PageHeading from '../../ui/PageHeading';
 import BookingDataBox from './BookingDataBox';
 
 export default function BookingDetail() {
@@ -19,11 +19,9 @@ export default function BookingDetail() {
   return (
     <Box>
       <Box className='flex items-center justify-between'>
-        <Box className='flex items-center gap-5'>
-          <Text component='h1' className='text-2xl font-bold text-slate-700'>
-            Booking #{bookingId}
-          </Text>
-          <Badge component='span' color={getBadgeColor(status)} variant='light'>
+        <Box className='flex items-center gap-5 flex-col md:flex-row'>
+          <PageHeading text={`Booking #${bookingId}`} />
+          <Badge component='span' className={getBadgeColor(status)}>
             {status}
           </Badge>
         </Box>
@@ -34,17 +32,12 @@ export default function BookingDetail() {
       <BookingDataBox booking={booking} />
       <Box className='flex justify-end'>
         {status === 'unconfirmed' && (
-          <Button
-            color={COLORS.primary}
-            onClick={() => navigate(`/check-in/${booking.id}`)}
-          >
+          <Button onClick={() => navigate(`/check-in/${booking.id}`)}>
             Check in
           </Button>
         )}
         {status === 'checked-in' && (
-          <Button color={COLORS.primary} onClick={() => checkOut(bookingId)}>
-            Check out
-          </Button>
+          <Button onClick={() => checkOut(bookingId)}>Check out</Button>
         )}
       </Box>
     </Box>

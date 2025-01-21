@@ -1,4 +1,3 @@
-import { Box } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import { ColumnDef } from '@tanstack/react-table';
 import { useBookings } from '../../hooks/useBookings';
@@ -6,11 +5,12 @@ import { BookingsData } from '../../types/bookings.types';
 import Table from '../../ui/Table';
 import BookingRow from './BookingRow';
 import {
-  desktopColumns,
-  largeTabletColumns,
-  mobileColumns,
-  tabletColumns,
-} from './ResponsiveColumns';
+  desktopBookingColumns,
+  largeTabletBookingColumns,
+  mobileBookingColumns,
+  tabletBookingColumns,
+} from './ResponsiveBookingColumns';
+import { LARGE_TABLET_MAX_WIDTH, MOBILE_MAX_WIDTH, PAGE_SIZES, TABLET_MAX_WIDTH } from '../../helpers/constants';
 
 const sortKeyMap = {
   id: 'id',
@@ -18,29 +18,34 @@ const sortKeyMap = {
 } as const;
 
 export default function BookingTable() {
-  const isMobile = useMediaQuery('(max-width: 550px)');
-  const isTablet = useMediaQuery('(max-width: 768px)');
-  const isLargeTablet = useMediaQuery('(max-width: 1024px)');
+  const isMobile = useMediaQuery(`(max-width: ${MOBILE_MAX_WIDTH}px)`);
+  const isTablet = useMediaQuery(`(max-width: ${TABLET_MAX_WIDTH}px)`);
+  const isLargeTablet = useMediaQuery(`(max-width: ${LARGE_TABLET_MAX_WIDTH}px)`);
   const columns = isMobile
-    ? mobileColumns
+    ? mobileBookingColumns
     : isTablet
-      ? tabletColumns
+      ? tabletBookingColumns
       : isLargeTablet
-        ? largeTabletColumns
-        : desktopColumns;
+        ? largeTabletBookingColumns
+        : desktopBookingColumns;
+
+  const pageSize = isMobile
+    ? PAGE_SIZES.xs
+    : isTablet
+      ? PAGE_SIZES.sm
+      : PAGE_SIZES.md;
   const { data: bookings, error, isPending } = useBookings();
 
   if (error) throw new Error('Error fetching bookings');
 
   return (
-    <Box className='w-full overflow-x-auto px-4'>
-      <Table<BookingsData>
-        data={bookings}
-        columns={columns as ColumnDef<BookingsData>[]}
-        sortKeyMap={sortKeyMap}
-        isLoading={isPending}
-        RowComponent={BookingRow}
-      />
-    </Box>
+    <Table<BookingsData>
+      data={bookings}
+      columns={columns as ColumnDef<BookingsData>[]}
+      sortKeyMap={sortKeyMap}
+      isLoading={isPending}
+      RowComponent={BookingRow}
+      pageSize={pageSize}
+    />
   );
 }

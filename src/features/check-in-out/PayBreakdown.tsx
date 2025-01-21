@@ -5,9 +5,9 @@ export default function PayBreakdown({ booking }: BookingProp) {
   const { totalPrice, extrasPrice, isPaid, cabinPrice } = booking;
   return (
     <Box
-      className={`mt-5 flex items-center justify-between rounded-lg p-5 ${isPaid ? 'bg-green-300' : 'bg-yellow-300'}`}
+      className={`mt-5 flex flex-col items-center gap-2 rounded-lg p-5 md:flex-row md:justify-between md:gap-0 ${isPaid ? 'dark:bg-dark-green-100 bg-green-700' : 'dark:bg-dark-yellow-100 bg-yellow-700'}`}
     >
-      <Text className=''>
+      <Text className='text-grey-200 dark:text-dark-grey-700 text-sm font-semibold md:text-base md:font-normal'>
         {`Total price: `}
         {
           <NumberFormatter
@@ -27,7 +27,7 @@ export default function PayBreakdown({ booking }: BookingProp) {
         cabin + <NumberFormatter prefix='$' value={extrasPrice ?? NaN} />{' '}
         breakfast)
       </Text>
-      <Text className='text-sm uppercase'>
+      <Text className='text-grey-200 dark:text-dark-grey-700 text-sm uppercase'>
         {isPaid ? 'Paid' : 'Will pay at property'}
       </Text>
     </Box>

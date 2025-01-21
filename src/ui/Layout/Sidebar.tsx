@@ -1,27 +1,45 @@
-import { Box } from '@mantine/core';
+import { Box, useComputedColorScheme } from '@mantine/core';
 import { HiOutlineHome, HiOutlineUsers } from 'react-icons/hi';
-import { HiOutlineAdjustmentsVertical, HiOutlineCalendarDays, HiOutlineHomeModern } from 'react-icons/hi2';
+import {
+  HiOutlineAdjustmentsVertical,
+  HiOutlineCalendarDays,
+  HiOutlineHomeModern,
+} from 'react-icons/hi2';
 import { NavLink } from 'react-router-dom';
 import logoLight from '../../assets/logo-light.png';
+import logoDark from '../../assets/logo-dark.png';
 import MobileMenu from './MobileMenu';
 
 export default function Sidebar({ className }: { className: string }) {
+  const computedColorScheme = useComputedColorScheme('dark');
 
   const links = [
     { to: '/dashboard', icon: <HiOutlineHome />, label: 'Home' },
     { to: '/bookings', icon: <HiOutlineCalendarDays />, label: 'Bookings' },
     { to: '/cabins', icon: <HiOutlineHomeModern />, label: 'Cabins' },
     { to: '/users', icon: <HiOutlineUsers />, label: 'Users' },
-    { to: '/settings', icon: <HiOutlineAdjustmentsVertical />, label: 'Settings' },
+    {
+      to: '/settings',
+      icon: <HiOutlineAdjustmentsVertical />,
+      label: 'Settings',
+    },
   ];
 
   return (
-    <Box component='aside' className={`${className} md:bg-gray-50 md:w-44`}>
+    <Box component='aside' className={`${className} md:bg-grey-50 md:w-44`}>
       <MobileMenu links={links} />
       {/* desktop nav */}
-      <Box component='nav' className='hidden md:block fixed md:relative top-0 left-0 h-full bg-gray-100 z-50 border-r border-gray-200'>
-        <Box className='flex text-left w-36 flex-col text-gray-800 items-start gap-5 p-4'>
-          <Box component='img' src={ logoLight} alt='logo' className='w-24 mb-5 mt-5' />
+      <Box
+        component='nav'
+        className='bg-grey-100 dark:bg-dark-grey-50 border-grey-200 dark:border-dark-grey-100 fixed left-0 top-0 z-50 hidden h-full border-r md:relative md:block'
+      >
+        <Box className='text-grey-800 dark:text-dark-grey-700 flex w-36 flex-col items-start gap-5 p-4 text-left'>
+          <Box
+            component='img'
+            src={computedColorScheme === 'dark' ? logoDark : logoLight}
+            alt='logo'
+            className='mb-5 mt-5 w-24'
+          />
           {links.map((link) => (
             <NavLink
               key={link.to}

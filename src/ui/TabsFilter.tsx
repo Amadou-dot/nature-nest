@@ -17,10 +17,9 @@ export default function TabsFilter({
     <Tabs
       defaultValue='all'
       value={searchParams.get(param) || 'all'}
-      onChange={handleFilterChange}
-      className='bg-gray-100'>
+      onChange={handleFilterChange}>
       <Tabs.List grow justify='space-between'>
-        {tabs.map(tab => (
+        {tabs.map((tab) => (
           <Tabs.Tab color={COLORS.primary} value={tab.value} key={tab.value}>
             {tab.label}
           </Tabs.Tab>

@@ -7,7 +7,7 @@ import { useBooking } from '../../hooks/useBooking';
 import { useCheckIn } from '../../hooks/useCheckIn';
 import { useSettings } from '../../hooks/useSettings';
 import { Booking } from '../../types/database.types';
-import PageHeading from '../../ui/PageHeading';
+import PageHeading from '../bookings/PageHeading';
 import BookingDataBox from '../bookings/BookingDataBox';
 
 export default function CheckInBooking() {

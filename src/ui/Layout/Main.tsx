@@ -6,7 +6,9 @@ export default function Main({
   className?: string;
 }) {
   return (
-    <main className={`${className} w-full h-full overflow-auto bg-gray-100 p-4`}>
+    <main
+      className={`${className} bg-grey-100 dark:bg-dark-grey-50 border-grey-200 dark:border-dark-grey-100 h-full w-full overflow-auto p-4`}
+    >
       {children}
     </main>
   );

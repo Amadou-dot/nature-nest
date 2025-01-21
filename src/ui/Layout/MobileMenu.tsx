@@ -12,7 +12,7 @@ export default function MobileMenu({links }: MobileMenuProps) {
        
       {opened && (
         <div
-          className='fixed inset-0 bg-indigo-200 bg-opacity-50 z-40 backdrop-blur-sm'
+          className='fixed inset-0 bg-brand-200/60 dark:bg-grey-700/70 bg-opacity-50 z-40 backdrop-blur-sm text-grey-800 dark:text-dark-grey-700'
           onClick={toggle}>
           <div className='fixed inset-y-0 left-0 w-full z-50 flex flex-col gap-4 p-4 items-center justify-center text-lg text-left'>
             {links.map(link => (
