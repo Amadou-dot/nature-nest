@@ -3,6 +3,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useModal } from '../context/ModalContext';
 import { updateCabin } from '../services/apiCabins';
 import { Database } from '../types/database.types';
+import { NOTIFICATION_POSITION } from '../helpers/constants';
 type FormCabin = Database['public']['Tables']['cabins']['Form'];
 export const useUpdateCabin = () => {
   const queryClient = useQueryClient();
@@ -19,7 +20,7 @@ export const useUpdateCabin = () => {
       notifications.show({
         message: 'Cabin updated successfully',
         color: 'green',
-        position: 'top-center',
+        position: NOTIFICATION_POSITION,
       });
       closeModal();
     },
@@ -28,7 +29,7 @@ export const useUpdateCabin = () => {
         message:
           error instanceof Error ? error.message : 'Error updating cabin',
         color: 'red',
-        position: 'top-center',
+        position: NOTIFICATION_POSITION,
       }),
     onSettled: () => queryClient.invalidateQueries({ queryKey: ['cabins'] }),
   });

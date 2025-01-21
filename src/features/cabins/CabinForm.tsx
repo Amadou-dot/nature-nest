@@ -1,7 +1,7 @@
 import { Button, FileInput, Textarea, TextInput } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
 import { useForm } from '@tanstack/react-form';
-import { COLORS, VALIDATION_MESSAGES } from '../../helpers/constants';
+import { COLORS, NOTIFICATION_POSITION, VALIDATION_MESSAGES } from '../../helpers/constants';
 import {
   validateDiscount,
   validateMaxCapacity,
@@ -47,7 +47,7 @@ export default function CabinForm(props: CabinFormProps) {
     notifications.show({
       message,
       color: 'red',
-      position: 'top-center',
+      position: NOTIFICATION_POSITION,
     });
   }
 

@@ -1,6 +1,6 @@
 import { notifications } from '@mantine/notifications';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { COLORS } from '../helpers/constants';
+import { COLORS, NOTIFICATION_POSITION } from '../helpers/constants';
 import { updateBooking } from '../services/apiBookings';
 
 export function useCheckOut() {
@@ -16,7 +16,7 @@ export function useCheckOut() {
         title: 'Booking checked out',
         message: `The booking ${data.id} has been successfully checked out`,
         color: COLORS.success,
-        position: 'top-center',
+        position: NOTIFICATION_POSITION,
       });
     },
 
@@ -25,7 +25,7 @@ export function useCheckOut() {
         title: 'Error',
         message: error.message,
         color: COLORS.danger,
-        position: 'top-center',
+        position: NOTIFICATION_POSITION,
       }),
     onSettled: () => {
       queryClient.invalidateQueries({ type: 'active' });

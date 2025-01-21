@@ -2,6 +2,7 @@ import { notifications } from '@mantine/notifications';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useModal } from '../context/ModalContext';
 import { createCabin } from '../services/apiCabins';
+import { NOTIFICATION_POSITION } from '../helpers/constants';
 
 export const useCreateCabin = () => {
   const queryClient = useQueryClient();
@@ -16,7 +17,7 @@ export const useCreateCabin = () => {
       notifications.show({
         message: 'Cabin created successfully',
         color: 'green',
-        position: 'top-center',
+        position: NOTIFICATION_POSITION,
       });
       closeModal();
     },
@@ -25,7 +26,7 @@ export const useCreateCabin = () => {
         message:
           error instanceof Error ? error.message : 'Error creating cabin',
         color: 'red',
-        position: 'top-center',
+        position: NOTIFICATION_POSITION,
       }),
     onSettled: () => queryClient.invalidateQueries({ queryKey: ['cabins'] }),
   });

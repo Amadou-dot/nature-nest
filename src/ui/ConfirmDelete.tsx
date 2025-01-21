@@ -3,6 +3,7 @@ import { notifications } from '@mantine/notifications';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useModal } from '../context/ModalContext';
 import { deleteCabin } from '../services/apiCabins';
+import { NOTIFICATION_POSITION } from '../helpers/constants';
 
 export default function ConfirmDelete({ cabinId }: { cabinId: number }) {
   const queryClient = useQueryClient();
@@ -14,7 +15,7 @@ export default function ConfirmDelete({ cabinId }: { cabinId: number }) {
         title: 'Cabin deleted',
         message: 'The cabin has been successfully deleted 🌟',
         color: 'indigo',
-        position: 'top-center',
+        position: NOTIFICATION_POSITION,
       });
     },
     onError: error => {
@@ -23,7 +24,7 @@ export default function ConfirmDelete({ cabinId }: { cabinId: number }) {
         message:
           error instanceof Error ? error.message : 'Error deleting cabin',
         color: 'red',
-        position: 'top-center',
+        position: NOTIFICATION_POSITION,
       });
     },
     onSettled: () => {

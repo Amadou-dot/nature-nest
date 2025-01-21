@@ -5,3 +5,20 @@ export type BookingsData = Booking & {
   cabins: { name: string };
   guests: { fullName: string; email: string };
 };
+
+export interface BookingAfterDate {
+  created_at: string;
+  totalPrice: number;
+  extrasPrice: number;
+}
+
+
+export interface StayAfterDate {
+  id: number;
+  startDate: string;
+  endDate: string;
+  status: string;
+  guests: {
+    fullName: string;
+  }[];
+}

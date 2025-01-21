@@ -1,21 +1,22 @@
-
-export const PREFERS_DARK_SCHEME = localStorage.getItem('mantine-color-scheme-value') === 'dark';
+export const PREFERS_DARK_SCHEME =
+  localStorage.getItem('mantine-color-scheme-value') === ('dark' as const);
 /** Max width for the app layout (px) */
-export const MAX_WIDTH = 1400;
+export const MAX_WIDTH = 1400 as const;
 // Color constants used throughout the app
 export const COLORS = {
-  primary: PREFERS_DARK_SCHEME ? '#3730a3': '#e0e7ff',
+  primary: PREFERS_DARK_SCHEME ? '#3730a3' : '#e0e7ff',
   success: PREFERS_DARK_SCHEME ? '#166534' : '#dcfce7',
   danger: PREFERS_DARK_SCHEME ? '#b91c1c' : '#fee2e2',
   gray: '#9ca3af',
 } as const;
-
+/** Default position for notifications */
+export const NOTIFICATION_POSITION = 'top-center' as const;
 /**Max width the app considers a mobile device*/
-export const MOBILE_MAX_WIDTH = 550
+export const MOBILE_MAX_WIDTH = 550 as const;
 /**Max width the app considers a tablet*/
-export const TABLET_MAX_WIDTH = 768
+export const TABLET_MAX_WIDTH = 768 as const;
 /**Max width the app considers a large tablet. Right below a laptop*/
-export const LARGE_TABLET_MAX_WIDTH = 1024
+export const LARGE_TABLET_MAX_WIDTH = 1024 as const;
 
 /** Booking status options */
 export const BOOKING_STATUS = {
