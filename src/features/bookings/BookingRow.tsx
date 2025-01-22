@@ -10,6 +10,8 @@ import { useCheckOut } from '../../hooks/useCheckOut';
 import { useDeleteBooking } from '../../hooks/useDeleteBooking';
 import { BookingsData } from '../../types/bookings.types';
 import { RowProps } from '../../types/table.types';
+// import ConfirmDelete from '../../ui/ConfirmDelete';
+import ConfirmDelete from '../../ui/ConfirmDelete';
 import Row from '../../ui/Row';
 
 export default function BookingRow(props: RowProps<BookingsData>) {
@@ -29,25 +31,18 @@ export default function BookingRow(props: RowProps<BookingsData>) {
   }
   const menuActions: MenuAction[] = [
     {
-      color: '',
+      color: 'blue',
       key: 'see-details',
       icon: <HiEye size={16} />,
       label: 'See Details',
       onClick: () => navigate(`/bookings/${props.itemId}`),
-    },
-    {
-      color: 'red',
-      key: 'delete',
-      icon: <HiTrash size={16} />,
-      label: 'Delete',
-      onClick: () => deleteBooking(bookingId),
     },
   ];
 
   if (status === 'unconfirmed')
     menuActions.push({
       key: 'check-in',
-      color: '',
+      color: 'green',
       icon: <HiArrowDownOnSquare size={16} />,
       label: 'Check in',
       onClick: () => navigate(`/check-in/${props.itemId}`),
@@ -55,11 +50,23 @@ export default function BookingRow(props: RowProps<BookingsData>) {
 
   if (status === 'checked-in')
     menuActions.push({
+      color: 'yellow',
       key: 'check-out',
-      color: '',
       icon: <HiArrowUpOnSquare size={16} />,
       label: 'Check out',
       onClick: () => checkOut(bookingId),
     });
+  menuActions.push({
+    color: 'red',
+    key: 'delete',
+    icon: <HiTrash size={16} />,
+    label: 'Delete',
+    onClick: () =>
+      ConfirmDelete({
+        resourceName: 'booking',
+        onConfirm: () => deleteBooking(bookingId),
+        noButton: true,
+      }),
+  });
   return <Row<BookingsData> {...props} menuActions={menuActions} />;
 }

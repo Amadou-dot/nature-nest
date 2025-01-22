@@ -1,7 +1,7 @@
 import { Button, FileInput, Textarea, TextInput } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
 import { useForm } from '@tanstack/react-form';
-import { COLORS, NOTIFICATION_POSITION, VALIDATION_MESSAGES } from '../../helpers/constants';
+import { NOTIFICATION_POSITION, VALIDATION_MESSAGES } from '../../helpers/constants';
 import {
   validateDiscount,
   validateMaxCapacity,
@@ -53,7 +53,7 @@ export default function CabinForm(props: CabinFormProps) {
 
   return (
     <form
-      className='w-max md:w-96 mx-auto p-5 flex flex-col items-center gap-3'
+      className='md:*:w-10/12 *:w-full  mx-auto p-5 flex flex-col items-center gap-3'
       onSubmit={e => {
         e.preventDefault();
         handleSubmit();
@@ -73,6 +73,7 @@ export default function CabinForm(props: CabinFormProps) {
             onChange={e => field.handleChange(e.target.value)}
             error={field.state.meta.errors[0]}
             disabled={isBusy}
+            onBlur={field.handleBlur}
           />
         )}
       </Field>
@@ -166,7 +167,7 @@ export default function CabinForm(props: CabinFormProps) {
           />
         )}
       />
-      <Button variant='filled' color={COLORS.primary}type='submit' disabled={isBusy} loading={isBusy}>
+      <Button variant='filled' type='submit' disabled={isBusy} loading={isBusy}>
         Submit
       </Button>
     </form>

@@ -3,11 +3,14 @@ import { useNavigate } from 'react-router-dom';
 import { getBadgeColor } from '../../helpers/utilFunctions';
 import { useBooking } from '../../hooks/useBooking';
 import { useCheckOut } from '../../hooks/useCheckOut';
+import { useDeleteBooking } from '../../hooks/useDeleteBooking';
 import BackButton from '../../ui/BackButton';
+import ConfirmDelete from '../../ui/ConfirmDelete';
 import PageHeading from '../../ui/PageHeading';
 import BookingDataBox from './BookingDataBox';
 
 export default function BookingDetail() {
+  const { deleteBooking } = useDeleteBooking();
   const { data: booking, isPending, error } = useBooking();
   const navigate = useNavigate();
   const { mutate: checkOut, isPending: isCheckingOut } = useCheckOut();
@@ -19,7 +22,7 @@ export default function BookingDetail() {
   return (
     <Box>
       <Box className='flex items-center justify-between'>
-        <Box className='flex items-center gap-5 flex-col md:flex-row'>
+        <Box className='flex flex-col items-center gap-5 md:flex-row'>
           <PageHeading text={`Booking #${bookingId}`} />
           <Badge component='span' className={getBadgeColor(status)}>
             {status}
@@ -30,7 +33,7 @@ export default function BookingDetail() {
         </Box>
       </Box>
       <BookingDataBox booking={booking} />
-      <Box className='flex justify-end'>
+      <Box className='flex justify-end gap-5'>
         {status === 'unconfirmed' && (
           <Button onClick={() => navigate(`/check-in/${booking.id}`)}>
             Check in
@@ -39,6 +42,14 @@ export default function BookingDetail() {
         {status === 'checked-in' && (
           <Button onClick={() => checkOut(bookingId)}>Check out</Button>
         )}
+
+        <ConfirmDelete
+          onConfirm={() => {
+            deleteBooking(bookingId);
+            navigate(-1);
+          }}
+          resourceName='booking'
+        />
       </Box>
     </Box>
   );

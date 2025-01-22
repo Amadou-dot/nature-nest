@@ -1,5 +1,6 @@
+import { modals } from '@mantine/modals';
 import { HiEye, HiPencil, HiTrash } from 'react-icons/hi2';
-import { useModal } from '../../context/ModalContext';
+import { useDeleteCabin } from '../../hooks/useDeleteCabin';
 import { getCabinById } from '../../services/apiCabins';
 import { Cabin } from '../../types/database.types';
 import { RowProps } from '../../types/table.types';
@@ -8,9 +9,8 @@ import Row from '../../ui/Row';
 import CabinDetails from './CabinDetails';
 import CabinForm from './CabinForm';
 
-
 export default function CabinRow(props: RowProps<Cabin>) {
-  const { openModal } = useModal();
+  const { deleteCabinMutation } = useDeleteCabin();
 
   if (props.rowType === 'header') {
     return <Row<Cabin> {...props} />;
@@ -23,25 +23,41 @@ export default function CabinRow(props: RowProps<Cabin>) {
       label: 'Edit',
       onClick: async () => {
         const cabinData = await getCabinById(cabinId);
-        openModal(
-          <CabinForm
-            mode='edit'
-            cabinData={cabinData || ({} as Cabin)}
-            cabinId={cabinId}
-          />,
-        );
+        modals.open({
+          title: 'Edit Cabin',
+          children: (
+            <CabinForm
+              mode='edit'
+              cabinData={cabinData || ({} as Cabin)}
+              cabinId={cabinId}
+            />
+          ),
+          modalId: 'edit-cabin',
+          size: 'lg',
+        });
       },
-    },
-    {
-      icon: <HiTrash size={16} />,
-      label: 'Delete',
-      onClick: () => openModal(<ConfirmDelete cabinId={cabinId} />),
-      color: 'red',
     },
     {
       icon: <HiEye size={16} />,
       label: 'View Details',
-      onClick: () => openModal(<CabinDetails cabinId={cabinId} />),
+      onClick: () =>
+        modals.open({
+          title: 'Cabin Details',
+          children: <CabinDetails cabinId={cabinId} />,
+          modalId: 'cabin-details',
+          size: 'lg',
+        }),
+    },
+    {
+      icon: <HiTrash size={16} />,
+      label: 'Delete',
+      color: 'red',
+      onClick: () =>
+        ConfirmDelete({
+          resourceName: 'cabin',
+          onConfirm: () => deleteCabinMutation(cabinId),
+          noButton: true,
+        }),
     },
   ];
 

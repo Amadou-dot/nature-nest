@@ -1,4 +1,4 @@
-import { Button, MantineThemeOverride } from '@mantine/core';
+import { MantineThemeOverride } from '@mantine/core';
 
 export const customTheme: MantineThemeOverride = {
   colors: {
@@ -189,11 +189,5 @@ export const customTheme: MantineThemeOverride = {
     fontFamily: 'Roboto Mono, monospace',
   },
   luminanceThreshold: 0.3,
-  components: {
-    Button: Button.extend({
-      defaultProps: {
-        className: 'dark:bg-brand-600',
-      },
-    }),
-  }
+  
 };

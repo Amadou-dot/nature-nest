@@ -1,8 +1,8 @@
 import { Button } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
+import { modals } from '@mantine/modals';
 import { ColumnDef } from '@tanstack/react-table';
 import { useSearchParams } from 'react-router-dom';
-import { useModal } from '../../context/ModalContext';
 import {
   MOBILE_MAX_WIDTH,
   PAGE_SIZES,
@@ -27,7 +27,6 @@ const sortKeyMap = {
 export default function CabinTable() {
   const isMobile = useMediaQuery(`(max-width: ${MOBILE_MAX_WIDTH}px)`);
   const isTablet = useMediaQuery(`(max-width: ${TABLET_MAX_WIDTH}px)`);
-  const { openModal } = useModal();
   const [searchParams] = useSearchParams();
   const filterValue = searchParams.get('filter');
   const sortValue = searchParams.get('sortBy');
@@ -69,7 +68,13 @@ export default function CabinTable() {
         className='mt-4 dark:bg-brand-600'
         variant='filled'
         size='md'
-        onClick={() => openModal(<CabinForm mode='create' />)}
+        onClick={() =>
+          modals.open({
+            title: 'Add Cabin',
+            children: <CabinForm mode='create' />,
+            modalId: 'add-cabin',
+          })
+        }
       >
         Add Cabin
       </Button>

@@ -1,13 +1,12 @@
 import { notifications } from '@mantine/notifications';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useModal } from '../context/ModalContext';
+import { NOTIFICATION_POSITION } from '../helpers/constants';
 import { updateCabin } from '../services/apiCabins';
 import { Database } from '../types/database.types';
-import { NOTIFICATION_POSITION } from '../helpers/constants';
+import { modals } from '@mantine/modals';
 type FormCabin = Database['public']['Tables']['cabins']['Form'];
 export const useUpdateCabin = () => {
   const queryClient = useQueryClient();
-  const { closeModal } = useModal();
 
   const {
     mutate: updateCabinMutation,
@@ -22,9 +21,9 @@ export const useUpdateCabin = () => {
         color: 'green',
         position: NOTIFICATION_POSITION,
       });
-      closeModal();
+      modals.close('edit-cabin');
     },
-    onError: error =>
+    onError: (error) =>
       notifications.show({
         message:
           error instanceof Error ? error.message : 'Error updating cabin',

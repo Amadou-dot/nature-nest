@@ -1,12 +1,11 @@
+import { modals } from '@mantine/modals';
 import { notifications } from '@mantine/notifications';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useModal } from '../context/ModalContext';
-import { createCabin } from '../services/apiCabins';
 import { NOTIFICATION_POSITION } from '../helpers/constants';
+import { createCabin } from '../services/apiCabins';
 
 export const useCreateCabin = () => {
   const queryClient = useQueryClient();
-  const { closeModal } = useModal();
   const {
     mutate: createCabinMutation,
     error: createError,
@@ -19,9 +18,9 @@ export const useCreateCabin = () => {
         color: 'green',
         position: NOTIFICATION_POSITION,
       });
-      closeModal();
+      modals.close('add-cabin');
     },
-    onError: error =>
+    onError: (error) =>
       notifications.show({
         message:
           error instanceof Error ? error.message : 'Error creating cabin',

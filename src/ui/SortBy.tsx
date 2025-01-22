@@ -26,7 +26,6 @@ export default function SortBy({
       onChange={handleChange}
       allowDeselect={false}
       value={sortBy}
-      defaultValue={sortBy}
     />
   );
 }
