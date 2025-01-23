@@ -1,5 +1,6 @@
 import { supabase } from '../supabase';
 
+/** Signs in a user */
 export const login = async ({
   email,
   password,
@@ -16,6 +17,7 @@ export const login = async ({
   return data;
 };
 
+/** Returns the current logged in user */
 export const getCurrentUser = async () => {
   const { data: session, error: sessionError } =
     await supabase.auth.getSession();
@@ -26,3 +28,9 @@ export const getCurrentUser = async () => {
   console.log(user);
   return user?.user;
 };
+
+/** Logs out the user */
+export const logout =  async () => {
+  const { error } = await supabase.auth.signOut();
+  if (error) throw new Error(error.message);
+}

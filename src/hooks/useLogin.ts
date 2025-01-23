@@ -1,7 +1,7 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { login } from '../services/apiAuth';
-import { useNavigate } from 'react-router-dom';
 import { notifications } from '@mantine/notifications';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useNavigate } from 'react-router-dom';
+import { login } from '../services/apiAuth';
 
 export const useLogin = () => {
   const navigate = useNavigate();
@@ -10,8 +10,8 @@ export const useLogin = () => {
     mutationFn: ({ email, password }: { email: string; password: string }) =>
       login({ email, password }),
     onSuccess: (user) => {
-      navigate('/dashboard');
       queryClient.setQueryData(['user'], user);
+      navigate('/dashboard', { replace: true });
     },
     onError: (error) => {
       notifications.show({
