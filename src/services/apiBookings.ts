@@ -1,5 +1,5 @@
 import { notifications } from '@mantine/notifications';
-import { ERROR_MESSAGES, NOTIFICATION_POSITION } from '../helpers/constants';
+import { ERROR_MESSAGES } from '../helpers/constants';
 import { getToday } from '../helpers/utilFunctions';
 import { supabase } from '../supabase';
 import {
@@ -37,7 +37,6 @@ export const getBookings = async ({ filter, sortBy }: GetBookingsProps) => {
     notifications.show({
       message: ERROR_MESSAGES.fetchBookings,
       color: 'red',
-      position: NOTIFICATION_POSITION,
     });
     throw new Error(ERROR_MESSAGES.fetchBookings);
   }

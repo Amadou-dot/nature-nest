@@ -1,7 +1,6 @@
 import { notifications } from '@mantine/notifications';
-import { useQueryClient, useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { updateSettings } from '../../services/apiSettings';
-import { NOTIFICATION_POSITION } from '../../helpers/constants';
 
 export function useUpdateSettings() {
   const queryClient = useQueryClient();
@@ -11,7 +10,6 @@ export function useUpdateSettings() {
       notifications.show({
         message: 'Settings updated',
         color: 'blue',
-        position: NOTIFICATION_POSITION,
       }),
 
     onError: error =>
@@ -19,7 +17,6 @@ export function useUpdateSettings() {
         message:
           error instanceof Error ? error.message : 'Error updating settings',
         color: 'red',
-        position: NOTIFICATION_POSITION,
       }),
 
     onSettled: () => queryClient.invalidateQueries({ queryKey: ['settings'] }),

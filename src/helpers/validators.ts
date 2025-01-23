@@ -30,3 +30,15 @@ export const validateDiscount = (value: number | null) => {
   if (value < 0) return 'Discount cannot be negative';
   return undefined;
 };
+
+export const validateEmail = (value: string | null) => {
+  if (!value) return 'Email is required';
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) return 'Invalid email';
+  return undefined;
+};
+
+export const validatePassword = (value: string | null) => {
+  if (!value) return 'Password is required';
+  if (value.length < 8) return 'Password must be at least 8 characters';
+  return undefined;
+};

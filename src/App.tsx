@@ -7,6 +7,8 @@ import { lazy, Suspense } from 'react';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { customTheme } from './theme';
 import AppLayout from './ui/Layout/AppLayout';
+import Login from './pages/Login';
+import ProtectedRoute from './ui/ProtectedRoute';
 
 const Bookings = lazy(() => import('./pages/Bookings'));
 const Cabins = lazy(() => import('./pages/Cabins'));
@@ -29,12 +31,12 @@ export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <MantineProvider theme={{ ...customTheme }} defaultColorScheme='auto'>
-        <Notifications />
+        <Notifications position='top-center' />
         <ModalsProvider>
           <BrowserRouter>
             <Suspense fallback={<LoadingOverlay visible />}>
               <Routes>
-                <Route element={<AppLayout />}>
+                <Route element={<ProtectedRoute><AppLayout /></ProtectedRoute>}>
                   <Route index element={<Navigate replace to='/dashboard' />} />
                   <Route path='/dashboard' element={<Dashboard />} />
                   <Route path='/bookings' element={<Bookings />} />
@@ -48,6 +50,7 @@ export default function App() {
                   <Route path='/settings' element={<Settings />} />
                   <Route path='*' element={<PageNotFound />} />
                 </Route>
+                <Route path='/login' element={<Login />} />
               </Routes>
             </Suspense>
           </BrowserRouter>

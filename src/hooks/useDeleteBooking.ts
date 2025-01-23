@@ -1,6 +1,6 @@
 import { notifications } from '@mantine/notifications';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { ERROR_MESSAGES, NOTIFICATION_POSITION } from '../helpers/constants';
+import { ERROR_MESSAGES } from '../helpers/constants';
 import { deleteBooking } from '../services/apiBookings';
 
 export const useDeleteBooking = () => {
@@ -11,7 +11,6 @@ export const useDeleteBooking = () => {
       notifications.show({
         message: 'Booking deleted',
         color: 'blue',
-        position: NOTIFICATION_POSITION,
       });
     },
     onError: () => {

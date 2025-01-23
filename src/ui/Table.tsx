@@ -8,7 +8,7 @@ import {
   useReactTable,
 } from '@tanstack/react-table';
 import { useMemo, useState } from 'react';
-import { COLORS, MAX_WIDTH, PAGE_SIZES } from '../helpers/constants';
+import { COLORS, PAGE_SIZES } from '../helpers/constants';
 import Empty from './Empty';
 type HeaderRowProps<T> = {
   data: Header<T, unknown>[];
@@ -117,7 +117,7 @@ export default function Table<T extends { id: number }>({
       {table.getPageCount() > 1 && (
         <Box
           component='footer'
-          className={`mx-auto mt-4 flex max-w-[${MAX_WIDTH}px] items-center gap-2`}
+          className={`mx-auto mt-4 flex items-center gap-2`}
         >
           <Text className='text-grey-800 dark:text-dark-grey-700'>{`Page ${
             table.getState().pagination.pageIndex + 1

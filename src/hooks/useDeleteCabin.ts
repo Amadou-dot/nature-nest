@@ -1,6 +1,5 @@
 import { notifications } from '@mantine/notifications';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { NOTIFICATION_POSITION } from '../helpers/constants';
 import { deleteCabin } from '../services/apiCabins';
 
 export const useDeleteCabin = () => {
@@ -12,7 +11,6 @@ export const useDeleteCabin = () => {
         title: 'Cabin deleted',
         message: 'The cabin has been successfully deleted 🌟',
         color: 'indigo',
-        position: NOTIFICATION_POSITION,
       });
     },
     onError: (error) => {
@@ -22,7 +20,6 @@ export const useDeleteCabin = () => {
         message:
           error instanceof Error ? error.message : 'Error deleting cabin',
         color: 'red',
-        position: NOTIFICATION_POSITION,
       });
     },
     onSettled: () => {
