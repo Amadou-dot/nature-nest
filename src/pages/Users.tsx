@@ -1,5 +1,9 @@
 import { Box } from '@mantine/core';
+import SignUp from './SignUp';
 
 export default function Users() {
-  return <Box>Users</Box>;
+  return <Box>
+    {/* <Text>Create a new user</Text> */}
+    <SignUp/>
+  </Box>;
 }

@@ -3,10 +3,10 @@ import { notifications } from '@mantine/notifications';
 import { useForm } from '@tanstack/react-form';
 import { VALIDATION_MESSAGES } from '../../helpers/constants';
 import {
+  validateCabinName,
   validateDiscount,
   validateMaxCapacity,
-  validateName,
-  validateRegularPrice,
+  validateRegularPrice
 } from '../../helpers/validators';
 import { useCreateCabin } from '../../hooks/useCreateCabin';
 import { useUpdateCabin } from '../../hooks/useUpdateCabin';
@@ -60,7 +60,7 @@ export default function CabinForm(props: CabinFormProps) {
       <Field
         name='name'
         validators={{
-          onChange: ({ value }) => validateName(value),
+          onChange: ({ value }) => validateCabinName(value),
         }}>
         {field => (
           <TextInput

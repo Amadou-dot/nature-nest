@@ -25,12 +25,30 @@ export const getCurrentUser = async () => {
   if (!session.session) return null;
   const { data: user, error: userError } = await supabase.auth.getUser();
   if (userError) throw new Error(userError.message);
-  console.log(user);
   return user.user;
 };
 
 /** Logs out the user */
-export const logout =  async () => {
+export const logout = async () => {
   const { error } = await supabase.auth.signOut();
   if (error) throw new Error(error.message);
-}
+};
+
+/** Signs up a user with an email,and password */
+export const signUpWithEmail = async ({
+  fullName,
+  email,
+  password,
+}: {
+  fullName: string;
+  email: string;
+  password: string;
+}) => {
+  const { data, error } = await supabase.auth.signUp({
+    email,
+    password,
+    options: { data: { fullName } },
+  });
+  if (error) throw new Error(error.message);
+  return data;
+};
