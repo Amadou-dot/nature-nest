@@ -11,8 +11,8 @@ import {
 import { useCabins } from '../../hooks/useCabins';
 import { Cabin } from '../../types/database.types';
 import Table from '../../ui/Table';
-import CabinForm from './CabinForm';
 import CabinRow from './CabinRow';
+import CreateCabinForm from './CreateCabinForm';
 import {
   desktopCabinColumns,
   mobileCabinColumns,
@@ -71,7 +71,7 @@ export default function CabinTable() {
         onClick={() =>
           modals.open({
             title: 'Add Cabin',
-            children: <CabinForm mode='create' />,
+            children: <CreateCabinForm mode='create' />,
             modalId: 'add-cabin',
           })
         }

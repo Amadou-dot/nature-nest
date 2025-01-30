@@ -7,7 +7,7 @@ import { RowProps } from '../../types/table.types';
 import ConfirmDelete from '../../ui/ConfirmDelete';
 import Row from '../../ui/Row';
 import CabinDetails from './CabinDetails';
-import CabinForm from './CabinForm';
+import EditCabinForm from './EditCabinForm';
 
 export default function CabinRow(props: RowProps<Cabin>) {
   const { deleteCabinMutation } = useDeleteCabin();
@@ -26,8 +26,7 @@ export default function CabinRow(props: RowProps<Cabin>) {
         modals.open({
           title: 'Edit Cabin',
           children: (
-            <CabinForm
-              mode='edit'
+            <EditCabinForm
               cabinData={cabinData || ({} as Cabin)}
               cabinId={cabinId}
             />

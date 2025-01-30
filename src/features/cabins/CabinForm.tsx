@@ -2,12 +2,8 @@ import { Button, FileInput, Textarea, TextInput } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
 import { useForm } from '@tanstack/react-form';
 import { VALIDATION_MESSAGES } from '../../helpers/constants';
-import {
-  validateCabinName,
-  validateDiscount,
-  validateMaxCapacity,
-  validateRegularPrice
-} from '../../helpers/validators';
+
+import { createCabinSchema } from '../../helpers/validators';
 import { useCreateCabin } from '../../hooks/useCreateCabin';
 import { useUpdateCabin } from '../../hooks/useUpdateCabin';
 import { Cabin } from '../../types/database.types';
@@ -17,75 +13,73 @@ type CabinFormProps =
   | { mode: 'edit'; cabinData: Cabin; cabinId: number };
 
 export default function CabinForm(props: CabinFormProps) {
-  
-  const {isUpdating, updateCabinMutation, updateError} = useUpdateCabin();
-  const {isCreating, createCabinMutation, createError} = useCreateCabin();
+  const { isUpdating, updateCabinMutation, updateError } = useUpdateCabin();
+  const { isCreating, createCabinMutation, createError } = useCreateCabin();
   const isEditMode = props.mode === 'edit';
   const isBusy = isCreating || isUpdating;
   const { Field, handleSubmit } = useForm({
     defaultValues: {
-      name: isEditMode ? props.cabinData.name : '',
-      maxCapacity: isEditMode ? props.cabinData.maxCapacity : 1,
-      regularPrice: isEditMode ? props.cabinData.regularPrice : 0,
-      discount: isEditMode ? props.cabinData.discount : 0,
-      description: isEditMode ? props.cabinData.description : '',
+      name: isEditMode ? props.cabinData.name || '' : '',
+      maxCapacity: isEditMode ? props.cabinData.maxCapacity || 1 : 1,
+      regularPrice: isEditMode ? props.cabinData.regularPrice || 0 : 0,
+      discount: isEditMode ? props.cabinData.discount || 0 : 0,
+      description: isEditMode ? props.cabinData.description || '' : '',
       image: null as File | null,
     },
     onSubmit: async ({ value: cabinData }) => {
-      const dataToSubmit = { ...cabinData };
+      const dataToSubmit = {
+        ...cabinData,
+        discount: cabinData.discount ?? null,
+      };
       if (isEditMode)
         updateCabinMutation({ cabinData: dataToSubmit, id: props.cabinId });
       else createCabinMutation(dataToSubmit);
     },
+    validators: {
+      onSubmit: createCabinSchema,
+    },
   });
 
   if (updateError || createError) {
-    let message = '';
-    if (updateError instanceof Error) message = updateError.message;
-    else if (createError instanceof Error) message = createError.message;
-    else message = 'Action could not be completed. Please try again';
-    notifications.show({
-      message,
+    return notifications.show({
+      message:
+        updateError?.message ||
+        createError?.message ||
+        'Action could not be completed. Please try again',
       color: 'red',
+      autoClose: false,
     });
   }
 
   return (
     <form
-      className='md:*:w-10/12 *:w-full  mx-auto p-5 flex flex-col items-center gap-3'
-      onSubmit={e => {
+      className='mx-auto flex flex-col items-center gap-3 p-5 *:w-full md:*:w-10/12'
+      onSubmit={(e) => {
         e.preventDefault();
         handleSubmit();
-      }}>
-      <Field
-        name='name'
-        validators={{
-          onChange: ({ value }) => validateCabinName(value),
-        }}>
-        {field => (
+      }}
+    >
+      <Field name='name' validators={{}}>
+        {(field) => (
           <TextInput
             label='Name'
             id={field.name}
             name={field.name}
             value={field.state.value || ''}
             type='text'
-            onChange={e => field.handleChange(e.target.value)}
+            onChange={(e) => field.handleChange(e.target.value)}
             error={field.state.meta.errors[0]}
             disabled={isBusy}
             onBlur={field.handleBlur}
           />
         )}
       </Field>
-      <Field
-        name='maxCapacity'
-        validators={{
-          onChange: ({ value }) => validateMaxCapacity(value),
-        }}>
-        {field => (
+      <Field name='maxCapacity' validators={{}}>
+        {(field) => (
           <TextInput
             label='Max capacity'
             value={field.state.value || 0}
-            onChange={e => field.handleChange(e.target.valueAsNumber)}
+            onChange={(e) => field.handleChange(e.target.valueAsNumber)}
             onBlur={field.handleBlur}
             placeholder='Max capacity'
             type='number'
@@ -96,14 +90,12 @@ export default function CabinForm(props: CabinFormProps) {
       </Field>
       <Field
         name='regularPrice'
-        validators={{
-          onChange: ({ value }) => validateRegularPrice(value),
-        }}
+        validators={{}}
         children={({ state, handleChange, handleBlur }) => (
           <TextInput
             label='Regular price'
             value={state.value || 0}
-            onChange={e => handleChange(Number(e.target.value))}
+            onChange={(e) => handleChange(Number(e.target.value))}
             onBlur={handleBlur}
             placeholder='Regular price'
             type='number'
@@ -114,14 +106,12 @@ export default function CabinForm(props: CabinFormProps) {
       />
       <Field
         name='discount'
-        validators={{
-          onChange: ({ value }) => validateDiscount(value),
-        }}
+        validators={{}}
         children={({ state, handleChange, handleBlur }) => (
           <TextInput
             label='Discount'
             value={state.value || 0}
-            onChange={e => handleChange(Number(e.target.value))}
+            onChange={(e) => handleChange(Number(e.target.value))}
             onBlur={handleBlur}
             placeholder='Discount'
             type='number'
@@ -144,7 +134,7 @@ export default function CabinForm(props: CabinFormProps) {
           <Textarea
             label='Description'
             value={state.value || ''}
-            onChange={e => handleChange(e.target.value)}
+            onChange={(e) => handleChange(e.target.value)}
             onBlur={handleBlur}
             placeholder='Cabin description'
             error={state.meta.errors[0]}
@@ -154,7 +144,7 @@ export default function CabinForm(props: CabinFormProps) {
       />
       <Field
         name='image'
-        children={field => (
+        children={(field) => (
           <FileInput
             label='Upload an image'
             accept='image/*'
@@ -172,3 +162,5 @@ export default function CabinForm(props: CabinFormProps) {
     </form>
   );
 }
+
+// TODO: DELETE THIS FILE. IT IS NOT USED
