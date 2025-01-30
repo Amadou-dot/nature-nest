@@ -1,7 +1,7 @@
 import { Button, FileInput, Textarea, TextInput } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
 import { useForm } from '@tanstack/react-form';
-import { createCabinSchema } from '../../helpers/validators';
+import { cabinSchema } from '../../helpers/validators';
 import { useUpdateCabin } from '../../hooks/useUpdateCabin';
 import { Cabin } from '../../types/database.types';
 
@@ -29,7 +29,7 @@ export default function EditCabinForm({ cabinData, cabinId }: EditCabinFormProps
       updateCabinMutation({ cabinData: dataToSubmit, id: cabinId });
     },
     validators: {
-      onSubmit: createCabinSchema,
+      onSubmit: cabinSchema,
     },
   });
 

@@ -71,7 +71,7 @@ export default function CabinTable() {
         onClick={() =>
           modals.open({
             title: 'Add Cabin',
-            children: <CreateCabinForm mode='create' />,
+            children: <CreateCabinForm />,
             modalId: 'add-cabin',
           })
         }

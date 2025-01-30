@@ -3,7 +3,7 @@ import { notifications } from '@mantine/notifications';
 import { useForm } from '@tanstack/react-form';
 import { VALIDATION_MESSAGES } from '../../helpers/constants';
 
-import { createCabinSchema } from '../../helpers/validators';
+import { cabinSchema } from '../../helpers/validators';
 import { useCreateCabin } from '../../hooks/useCreateCabin';
 import { useUpdateCabin } from '../../hooks/useUpdateCabin';
 import { Cabin } from '../../types/database.types';
@@ -36,7 +36,7 @@ export default function CabinForm(props: CabinFormProps) {
       else createCabinMutation(dataToSubmit);
     },
     validators: {
-      onSubmit: createCabinSchema,
+      onSubmit: cabinSchema,
     },
   });
 
