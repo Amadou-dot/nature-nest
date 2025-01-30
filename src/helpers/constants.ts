@@ -44,3 +44,17 @@ export const VALIDATION_MESSAGES = {
   minLength: (min: number) => `Must be at least ${min} characters`,
   maxLength: (max: number) => `Must be less than ${max} characters`,
 } as const;
+
+/** Requirements for creating a password */
+export const PASSWORD_MIN_LENGTH = 8 as const;
+/** Requirements for creating a password */
+export const PASSWORD_MAX_LENGTH = 20 as const;
+/** Requirements for creating a password */
+export const PASSWORD_REQUIREMENTS= [
+  { re: /[0-9]/, label: 'Includes number' },
+  { re: /[a-z]/, label: 'Includes lowercase letter' },
+  { re: /[A-Z]/, label: 'Includes uppercase letter' },
+  { re: /[$&+,:;=?@#|'<>.^*()%!-]/, label: 'Includes special symbol' },
+  { re: /^.{8,20}$/, label: 'Between 8 and 20 characters' },
+];
+

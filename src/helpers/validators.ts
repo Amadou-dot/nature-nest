@@ -1,51 +1,101 @@
-export const validateCabinName = (name: string | null) => {
-  if (!name) return 'Name is required';
-  if (name.length < 3) return 'Name must be at least 3 characters';
-  if (name.length > 50) return 'Name must be less than 50 characters';
-  if (!/^[a-zA-Z0-9]+$/.test(name))
-    return 'Name must only contain letters and numbers';
-  return undefined;
-};
+import { z, ZodError } from 'zod';
+import { PASSWORD_REQUIREMENTS } from './constants';
 
-export const validateMaxCapacity = (capacity: number | null) => {
-  if (!capacity) return 'Capacity is required';
-  if (isNaN(capacity)) return 'Must be a number';
-  if (capacity < 1) return 'Capacity must be at least 1';
-  if (capacity > 10) return 'Capacity cannot exceed 10';
-  return undefined;
-};
+//? AUTHENTICATION
+export const userNameSchema = z
+  .string()
+  .min(3, 'Name must be at least 3 characters')
+  .max(50, 'Name must be less than 50 characters')
+  .regex(/^[a-zA-Z ]+$/, 'Name must only contain letters, and spaces')
+  .nonempty('A name is required');
 
+export const emailSchema = z
+  .string()
+  .nonempty('Enter your email address')
+  .email('Invalid email');
+
+export const loginPasswordSchema = z.string().nonempty('Enter your password');
+
+export const createPasswordSchema = PASSWORD_REQUIREMENTS.reduce(
+  (schema, requirement) => schema.regex(requirement.re, requirement.label),
+  z.string().nonempty('A password is required'),
+);
+
+export const registerUserSchema = z
+  .object({
+    fullName: userNameSchema,
+    email: emailSchema,
+    password: createPasswordSchema,
+    confirmPassword: z.string(),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: 'Passwords must match',
+    path: ['confirmPassword'],
+  });
+
+//? CABINS
+
+export const priceSchema = z.number().min(1, 'Price must be greater than 1');
+
+export const discountSchema = z
+  .number()
+  .max(100, 'Discount cannot exceed 100%')
+  .min(0, 'Discount cannot be negative')
+  .optional()
+  .nullable();
+
+export const cabinSchema = z.object({
+  name: z.string().nonempty('Enter a name for the cabin'),
+  maxCapacity: z.number().min(1, 'Capacity must be at least 1'),
+  description: z.string().nonempty('Enter a description for the cabin'),
+  regularPrice: priceSchema,
+  discount: discountSchema,
+  image: z.instanceof(File).nullable(),
+});
+//? SETTINGS
+
+//? VALIDATION FUNCTIONS
 export const validateRegularPrice = (price: number | null) => {
-  if (!price) return 'Price is required';
-  if (isNaN(price)) return 'Must be a number';
-  if (price < 1) return 'Price must be at least 1';
-  return undefined;
+  try {
+    priceSchema.parse(price);
+    return undefined;
+  } catch (e) {
+    return (e as ZodError).errors[0].message;
+  }
 };
 
 export const validateDiscount = (discount: number | null) => {
-  if (!discount) return undefined;
-  if (isNaN(discount)) return 'Must be a number';
-  if (discount > 100) return 'Discount cannot exceed 100%';
-  if (discount < 0) return 'Discount cannot be negative';
-  if (discount < 0) return 'Discount cannot be negative';
-  return undefined;
+  try {
+    discountSchema.parse(discount);
+    return undefined;
+  } catch (e) {
+    return (e as ZodError).errors[0].message;
+  }
 };
 
 export const validateEmail = (email: string | null) => {
-  if (!email) return 'Email is required';
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return 'Invalid email';
-  return undefined;
+  try {
+    emailSchema.parse(email);
+    return undefined;
+  } catch (e) {
+    return (e as ZodError).errors[0].message;
+  }
 };
 
 export const validatePassword = (password: string | null) => {
-  if (!password) return 'Password is required';
-  if (password.length < 8) return 'Password must be at least 8 characters';
-  return undefined;
+  try {
+    createPasswordSchema.parse(password);
+    return undefined;
+  } catch (e) {
+    return (e as ZodError).errors[0].message;
+  }
 };
 
 export const validateUserName = (name: string | null) => {
-  if (!name) return 'A name is required'
-  if (name.length < 3) return 'Name must be at least 3 characters';
-  if (name.length > 50) return 'Name must be less than 50 characters';
-  if (!/^[a-zA-Z0-9 ]+$/.test(name)) return 'Name must only contain letters, numbers, and spaces'
-}
+  try {
+    userNameSchema.parse(name);
+    return undefined;
+  } catch (e) {
+    return (e as ZodError).errors[0].message;
+  }
+};
