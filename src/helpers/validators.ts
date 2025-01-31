@@ -33,6 +33,22 @@ export const registerUserSchema = z
     path: ['confirmPassword'],
   });
 
+//? USERS
+export const updateUserSchema = z.object({
+  fullName: userNameSchema,
+  email: emailSchema,
+  avatar: z.instanceof(File).nullable(),
+});
+
+export const updatePasswordSchema = z
+  .object({
+    currentPassword: loginPasswordSchema,
+    newPassword: createPasswordSchema,
+    confirmPassword: z.string(),
+  })
+  .refine((data) => data.newPassword === data.confirmPassword, {
+    message: 'Passwords must match',
+  });
 //? CABINS
 
 export const priceSchema = z.number().min(1, 'Price must be greater than 1');

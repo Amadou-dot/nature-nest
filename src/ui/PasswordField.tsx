@@ -49,6 +49,7 @@ function getStrength(password: string) {
   );
 }
 
+/** Password input with a dropdown showcasing requirements */
 export function PasswordField(props: PasswordInputProps) {
   const [popoverOpened, setPopoverOpened] = useState(false);
   const [value, setValue] = useState('');

@@ -5,10 +5,10 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { lazy, Suspense } from 'react';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import Account from './pages/Account';
 import Login from './pages/Login';
 import { customTheme } from './theme';
 import AppLayout from './ui/Layout/AppLayout';
-import ProtectedRoute from './ui/ProtectedRoute';
 
 const Bookings = lazy(() => import('./pages/Bookings'));
 const Cabins = lazy(() => import('./pages/Cabins'));
@@ -26,7 +26,7 @@ const queryClient = new QueryClient({
     },
   },
 });
-// mantine-color-scheme-value
+
 export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
@@ -36,7 +36,7 @@ export default function App() {
           <BrowserRouter>
             <Suspense fallback={<LoadingOverlay visible />}>
               <Routes>
-                <Route element={<ProtectedRoute><AppLayout /></ProtectedRoute>}>
+                <Route element={<AppLayout />}>
                   <Route index element={<Navigate replace to='/dashboard' />} />
                   <Route path='/dashboard' element={<Dashboard />} />
                   <Route path='/bookings' element={<Bookings />} />
@@ -45,6 +45,7 @@ export default function App() {
                   <Route path='/cabins' element={<Cabins />} />
                   <Route path='/users' element={<Users />} />
                   <Route path='/settings' element={<Settings />} />
+                  <Route path='/account' element={<Account />} />
                   <Route path='*' element={<PageNotFound />} />
                 </Route>
                 <Route path='/login' element={<Login />} />

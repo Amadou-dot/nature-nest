@@ -1,5 +1,5 @@
 import { Box, Image, useComputedColorScheme } from '@mantine/core';
-import { HiOutlineHome, HiOutlineUsers } from 'react-icons/hi';
+import { HiOutlineHome, HiOutlineUser, HiOutlineUsers } from 'react-icons/hi';
 import {
   HiOutlineAdjustmentsVertical,
   HiOutlineCalendarDays,
@@ -18,11 +18,8 @@ export default function Sidebar({ className }: { className: string }) {
     { to: '/bookings', icon: <HiOutlineCalendarDays />, label: 'Bookings' },
     { to: '/cabins', icon: <HiOutlineHomeModern />, label: 'Cabins' },
     { to: '/users', icon: <HiOutlineUsers />, label: 'Users' },
-    {
-      to: '/settings',
-      icon: <HiOutlineAdjustmentsVertical />,
-      label: 'Settings',
-    },
+    { to: '/settings', icon: <HiOutlineAdjustmentsVertical />, label: 'Settings' },
+    { to: '/account', icon: <HiOutlineUser />, label: 'Account' },
   ];
 
   return (
