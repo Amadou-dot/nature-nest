@@ -2,7 +2,7 @@ import { Box, Button, LoadingOverlay, TextInput } from '@mantine/core';
 import { useForm } from '@tanstack/react-form';
 import { registerUserSchema } from '../helpers/validators';
 import { useSignUp } from '../hooks/useSignUp';
-import { PasswordField } from '../ui/PasswordField';
+import { PasswordField } from './PasswordField';
 
 export default function SignUpForm() {
   const { mutate: signUp, isPending } = useSignUp();
