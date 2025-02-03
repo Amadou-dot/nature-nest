@@ -8,7 +8,7 @@ export default function Logout() {
   const { logout, isPending } = useLogout();
   return (
     isAuthenticated && (
-      <Button  onClick={() => logout()} loading={isPending} disabled={isPending} className='mb-6 flex items-center'>
+      <Button onClick={() => logout()} loading={isPending} disabled={isPending}>
         <HiOutlineLogout className='mr-2' /> Logout
       </Button>
     )

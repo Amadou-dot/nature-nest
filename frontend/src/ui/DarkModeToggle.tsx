@@ -3,9 +3,10 @@ import {
   useComputedColorScheme,
   useMantineColorScheme,
 } from '@mantine/core';
+import { HiOutlineMoon } from 'react-icons/hi2';
 
 export default function DarkModeToggle() {
-  const { colorScheme, setColorScheme } = useMantineColorScheme();
+  const { setColorScheme } = useMantineColorScheme();
   const computedColorScheme = useComputedColorScheme('dark');
   const toggleDarkMode = () => {
     setColorScheme(computedColorScheme === 'dark' ? 'light' : 'dark');
@@ -17,8 +18,8 @@ export default function DarkModeToggle() {
   };
 
   return (
-    <Button onClick={toggleDarkMode}>
-      {colorScheme === 'dark' ? 'Light Mode' : 'Dark Mode'}
+    <Button onClick={toggleDarkMode} variant='transparent'>
+      <HiOutlineMoon className='h-6 w-8 hover:cursor-pointer' />
     </Button>
   );
 }
