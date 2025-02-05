@@ -18,6 +18,7 @@ export interface StayAfterDate {
   startDate: string;
   endDate: string;
   status: string;
+  numNights: number;
   guests: {
     fullName: string;
   }[];

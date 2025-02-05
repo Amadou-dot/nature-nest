@@ -18,5 +18,5 @@ export const useRecentBookings = () => {
     queryKey: ['bookings', numDays],
   });
 
-  return { isPending, bookings, error };
+  return { isPending, bookings, error, numDays };
 };

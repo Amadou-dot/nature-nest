@@ -41,7 +41,7 @@ export default function Sidebar({ className }: { className: string }) {
               key={link.to}
               to={link.to}
               className={({ isActive }) =>
-                `flex items-center gap-2 text-lg ${isActive ? 'text-indigo-700' : ''}`
+                `flex items-center gap-2 text-lg ${isActive ? 'text-indigo-700 py-2' : ''}`
               }
             >
               {link.icon} <span className='w-6 xl:text-xl'>{link.label}</span>
