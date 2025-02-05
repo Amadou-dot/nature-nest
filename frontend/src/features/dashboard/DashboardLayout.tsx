@@ -36,8 +36,11 @@ export default function DashboardLayout() {
         numDays={numDays}
         cabinCount={cabins.length}
       />
+      <Box className='grid grid-cols-1 lg:grid-cols-2 gap-4'>
+        <Box>Today's activity</Box>
+        <DurationChart confirmedStays={confirmedStays} />
+      </Box>
       <SalesChart bookings={bookings || []} numDays={numDays} />
-      <DurationChart />
     </Box>
   );
 }

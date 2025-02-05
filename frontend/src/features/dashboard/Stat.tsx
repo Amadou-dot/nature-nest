@@ -1,4 +1,4 @@
-import { Box, Paper, Text } from '@mantine/core';
+import { Box, Text } from '@mantine/core';
 import { createElement } from 'react';
 import { IconType } from 'react-icons/lib';
 interface StatProps {
@@ -9,17 +9,14 @@ interface StatProps {
 }
 export default function Stat({ icon, title, value, color }: StatProps) {
   return (
-    <Paper shadow='md'
-      className='bg-white transition-color flex w-40 items-center space-x-4 bg-grey-200 p-4 duration-300 dark:bg-dark-grey-100 md:w-auto'
-      radius='md'
-    >
-      <Box className='w-fit'>{createElement(icon, { size: 26, color })}</Box>
-      <Box className='flex flex-col'>
-        <Text className='text-sm uppercase tracking-widest text-grey-800 dark:text-dark-grey-700'>
+    <Box className='flex flex-col items-center'>
+      <Box className='flex items-center gap-2'>
+        {createElement(icon, { size: 26, color })}
+        <Text className='text-center font-semibold dark:text-dark-grey-400'>
           {title}
         </Text>
-        <Text className='text-lg font-bold'>{value}</Text>
       </Box>
-    </Paper>
+      <Text className='text-center text-2xl font-bold'>{value}</Text>
+    </Box>
   );
 }

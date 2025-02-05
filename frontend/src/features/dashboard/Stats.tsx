@@ -35,43 +35,31 @@ export default function Stats({
       (numDays * cabinCount)) *
     100;
   return (
-        <Box className='flex flex-col justify-around md:flex-row'>
-      <Box className='flex w-full flex-wrap justify-around gap-4'>
-        <Box className='w-40 h-40'>
-          <Stat
-            title='Bookings'
-            icon={HiOutlineBriefcase}
-            value={totalBookings}
-            color={isDarkMode ? '#0096c7' : '#3a0ca3'}
-          />
-        </Box>
-        <Box className='w-40 h-40'>
-          <Stat
-            title='Sales'
-            icon={HiOutlineBanknotes}
-            value={formatCurrency(totalSales)}
-            color={isDarkMode ? '#52b788' : '#008000'}
-          />
-        </Box>
-      </Box>
-      <Box className='flex w-full flex-wrap justify-around gap-4'>
-        <Box className='w-40 h-40'>
-          <Stat
-            title='Check ins'
-            icon={HiOutlineCalendarDays}
-            value={checkIns}
-            color={isDarkMode ? '#A2B1F6' : '#b100e8'}
-          />
-        </Box>
-        <Box className='w-40 h-40'>
-          <Stat
-            title='Occupancy'
-            icon={HiOutlineChartBar}
-            value={occupancyRate.toFixed(2) + '%'}
-            color={isDarkMode ? '#e76f51' : '#792511'}
-          />
-        </Box>
-      </Box>
+    <Box className='grid grid-cols-1 items-center gap-4 divide-x-0 dark:divide-dark-grey-200 dark:bg-dark-grey-0 md:grid-cols-2 lg:grid-cols-4 lg:divide-x h-fit py-4 lg:py-8'>
+      <Stat
+        icon={HiOutlineBriefcase}
+        title='Bookings'
+        value={totalBookings}
+        color={isDarkMode ? '#0096c7' : '#3a0ca3'}
+      />
+      <Stat
+        icon={HiOutlineBanknotes}
+        title='Sales'
+        value={formatCurrency(totalSales)}
+        color={isDarkMode ? '#52b788' : '#008000'}
+      />
+      <Stat
+        icon={HiOutlineCalendarDays}
+        title='Check ins'
+        value={checkIns}
+        color={isDarkMode ? '#A2B1F6' : '#b100e8'}
+      />
+      <Stat
+        icon={HiOutlineChartBar}
+        title='Occupancy rate'
+        value={occupancyRate.toFixed(2) + '%'}
+        color={isDarkMode ? '#e76f51' : '#792511'}
+      />
     </Box>
   );
 }
