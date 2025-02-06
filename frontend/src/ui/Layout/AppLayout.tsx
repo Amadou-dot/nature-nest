@@ -14,7 +14,7 @@ export default function AppLayout() {
     <ProtectedRoute>
       <Box className='relative h-dvh w-dvw overflow-hidden bg-grey-50 dark:bg-dark-grey-50 md:grid md:grid-cols-[auto_1fr] md:grid-rows-[auto_1fr]'>
         <Sidebar className='absolute md:relative md:row-span-2' />
-        <Header className='md:col-start-2 mt-8 md:mt-0' />
+        <Header className='md:col-start-2' />
         <Main className={`mx-auto overflow-auto md:col-start-2 md:row-start-2`}>
           <Outlet />
         </Main>

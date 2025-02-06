@@ -1,8 +1,6 @@
 import { DonutChart } from '@mantine/charts';
 import { Box, Text, useMantineColorScheme } from '@mantine/core';
-import { useMediaQuery } from '@mantine/hooks';
 import { subDays } from 'date-fns';
-import { MOBILE_MAX_WIDTH, TABLET_MAX_WIDTH } from '../../helpers/constants';
 import { StayAfterDate } from '../../types/bookings.types';
 interface DurationChartProps {
   confirmedStays: StayAfterDate[] | undefined;
@@ -17,8 +15,6 @@ export default function DurationChart({ confirmedStays }: DurationChartProps) {
   if (!confirmedStays) return null;
   const {colorScheme} = useMantineColorScheme()
   const isDarkMode = colorScheme === 'dark';
-  const isMobile = useMediaQuery(`(max-width: ${MOBILE_MAX_WIDTH}px)`);
-    const isTablet = useMediaQuery(`(max-width: ${TABLET_MAX_WIDTH}px)`);
   const data: DurationData[] = [
     { name: '1 night', value: 0, color: `${isDarkMode ? '#b91c1c': '#ef4444'}` },
     { name: '2-3 nights', value: 0, color: `${isDarkMode ? '#c2410c' : '#f97316'}` },
@@ -64,8 +60,6 @@ export default function DurationChart({ confirmedStays }: DurationChartProps) {
         chartLabel={'Duration'}
         paddingAngle={3}
         h={300}
-        withLabelsLine={(isMobile || isTablet) ? true : false}
-        withLabels={(isMobile || isTablet) ? true : false}
       />
       <Box className='flex flex-col justify-center space-y-2'>
         {data.map((item) => (
