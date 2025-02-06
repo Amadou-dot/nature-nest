@@ -95,7 +95,7 @@ export default function Table<T extends { id: number }>({
   if (!data || data.length === 0) return <Empty resourceName='items' />;
   return (
     <>
-      <table className={`mx-auto h-full w-full max-w-[1400px]`}>
+      <table className={`mx-auto h-full w-full max-w-[1800px]`}>
         <thead className='text-grey-800 dark:text-dark-grey-700 md:text-xl'>
           <RowComponent
             data={table.getHeaderGroups()[0].headers}

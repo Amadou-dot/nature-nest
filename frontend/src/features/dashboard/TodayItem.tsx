@@ -40,7 +40,7 @@ export default function TodayItem({ activity }: TodayItemProps) {
       )}
       {status === 'checked-in' && (
         <Link
-          className='bg-indigo-500 mt-4 w-24 rounded-lg p-2 text-center dark:bg-brand-700 md:mt-0'
+          className='mt-4 w-24 rounded-lg bg-brand-500 p-2 text-center dark:bg-brand-700 md:mt-0'
           to={`/bookings/${id}`}
         >
           Check out

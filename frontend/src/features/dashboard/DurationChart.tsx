@@ -51,7 +51,7 @@ export default function DurationChart({ confirmedStays }: DurationChartProps) {
     }
   },[{}]);
   return (
-    <Box className={`flex lg:flex-col lg:items-center 2xl:flex-row rounded-lg bg-grey-200 p-8 dark:bg-dark-grey-100/40`}>
+    <Box className='flex lg:flex-col lg:items-center 2xl:flex-row rounded-lg bg-grey-50 p-8 dark:bg-dark-grey-100/40 shadow-lg dark:shadow-none'>
       <DonutChart
         data={data}
         withTooltip

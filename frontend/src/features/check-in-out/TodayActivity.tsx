@@ -5,7 +5,7 @@ import TodayItem from '../dashboard/TodayItem';
 export default function TodayActivity() {
   const { activities, isPending } = useTodayActivity();
   return (
-    <Box className='flex flex-col rounded-lg bg-grey-200 p-8 dark:bg-dark-grey-100/40'>
+    <Box className='flex flex-col rounded-lg bg-grey-50 p-8 shadow-lg dark:bg-dark-grey-100/40 dark:shadow-none'>
       <Text className='font-semibold'>Today's activity</Text>
       {isPending && <Loader />}
       {((!isPending && !activities) ||

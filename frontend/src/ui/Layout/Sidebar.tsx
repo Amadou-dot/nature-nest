@@ -9,7 +9,7 @@ import { NavLink } from 'react-router-dom';
 import logoDark from '../../assets/logo-dark.png';
 import logoLight from '../../assets/logo-light.png';
 import MobileMenu from './MobileMenu';
-export default function Sidebar({ className }: { className: string }) {
+export default function Sidebar() {
   const computedColorScheme = useComputedColorScheme('dark');
 
   const links = [
@@ -26,7 +26,10 @@ export default function Sidebar({ className }: { className: string }) {
   ];
 
   return (
-    <Box component='aside' className={`${className} md:w-44 md:bg-grey-50`}>
+    <Box
+      component='aside'
+      className='absolute md:relative md:row-span-2 md:w-44 md:bg-grey-50'
+    >
       <MobileMenu links={links} />
       {/* desktop nav */}
       <Box
@@ -44,14 +47,13 @@ export default function Sidebar({ className }: { className: string }) {
               key={link.to}
               to={link.to}
               className={({ isActive }) =>
-                `flex items-center gap-2 text-lg ${isActive ? 'py-2 text-indigo-700' : ''}`
+                `flex items-center gap-2 text-lg ${isActive ? 'text-indigo-700' : ''}`
               }
             >
               {link.icon} <span className='w-6 xl:text-xl'>{link.label}</span>
             </NavLink>
           ))}
         </Box>
-        {/* <Uploader /> */}
       </Box>
     </Box>
   );
