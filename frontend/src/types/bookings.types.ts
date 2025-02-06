@@ -12,13 +12,17 @@ export interface BookingAfterDate {
   extrasPrice: number;
 }
 
-
 export interface StayAfterDate {
   id: number;
   startDate: string;
   endDate: string;
   status: string;
+  numNights: number;
   guests: {
     fullName: string;
   }[];
 }
+
+export type TodayActivityReturn = Booking & {
+  guests: { fullName: string; countryFlag: string; nationality: string };
+};

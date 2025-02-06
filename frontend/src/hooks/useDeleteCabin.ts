@@ -14,7 +14,6 @@ export const useDeleteCabin = () => {
       });
     },
     onError: (error) => {
-      console.log(error);
       notifications.show({
         title: 'Cabin not deleted',
         message:

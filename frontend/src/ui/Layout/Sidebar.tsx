@@ -9,7 +9,6 @@ import { NavLink } from 'react-router-dom';
 import logoDark from '../../assets/logo-dark.png';
 import logoLight from '../../assets/logo-light.png';
 import MobileMenu from './MobileMenu';
-
 export default function Sidebar({ className }: { className: string }) {
   const computedColorScheme = useComputedColorScheme('dark');
 
@@ -18,7 +17,11 @@ export default function Sidebar({ className }: { className: string }) {
     { to: '/bookings', icon: <HiOutlineCalendarDays />, label: 'Bookings' },
     { to: '/cabins', icon: <HiOutlineHomeModern />, label: 'Cabins' },
     { to: '/users', icon: <HiOutlineUsers />, label: 'Users' },
-    { to: '/settings', icon: <HiOutlineAdjustmentsVertical />, label: 'Settings' },
+    {
+      to: '/settings',
+      icon: <HiOutlineAdjustmentsVertical />,
+      label: 'Settings',
+    },
     { to: '/account', icon: <HiOutlineUser />, label: 'Account' },
   ];
 
@@ -41,7 +44,7 @@ export default function Sidebar({ className }: { className: string }) {
               key={link.to}
               to={link.to}
               className={({ isActive }) =>
-                `flex items-center gap-2 text-lg ${isActive ? 'text-indigo-700' : ''}`
+                `flex items-center gap-2 text-lg ${isActive ? 'py-2 text-indigo-700' : ''}`
               }
             >
               {link.icon} <span className='w-6 xl:text-xl'>{link.label}</span>
