@@ -30,7 +30,7 @@ export default function DashboardLayout() {
   }
 
   return (
-    <Box className='mb-40 mt-8 space-y-8 md:mb-0'>
+    <Box className='mt-8 space-y-8 md:mb-0'>
       <Stats
         bookings={bookings}
         confirmedStays={confirmedStays}
