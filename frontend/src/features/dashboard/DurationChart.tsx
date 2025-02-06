@@ -1,9 +1,9 @@
 import { DonutChart } from '@mantine/charts';
 import { Box, Text, useMantineColorScheme } from '@mantine/core';
-import { StayAfterDate } from '../../types/bookings.types';
-import { subDays } from 'date-fns';
 import { useMediaQuery } from '@mantine/hooks';
+import { subDays } from 'date-fns';
 import { MOBILE_MAX_WIDTH, TABLET_MAX_WIDTH } from '../../helpers/constants';
+import { StayAfterDate } from '../../types/bookings.types';
 interface DurationChartProps {
   confirmedStays: StayAfterDate[] | undefined;
 }
@@ -55,7 +55,7 @@ export default function DurationChart({ confirmedStays }: DurationChartProps) {
     }
   },[{}]);
   return (
-    <Box className='flex rounded-lg bg-grey-200 p-8 dark:bg-dark-grey-100/40'>
+    <Box className={`flex lg:flex-col lg:items-center 2xl:flex-row rounded-lg bg-grey-200 p-8 dark:bg-dark-grey-100/40`}>
       <DonutChart
         data={data}
         withTooltip

@@ -6,6 +6,7 @@ import {
   BookingAfterDate,
   BookingsData,
   StayAfterDate,
+  TodayActivityReturn,
 } from '../types/bookings.types';
 import { Booking, Cabin, Guest } from '../types/database.types';
 interface GetBookingsProps {
@@ -107,6 +108,7 @@ export async function getStaysAfterDate(
   return data as StayAfterDate[];
 }
 
+
 /** Gets bookings that were changed today i.e. checked in or checked out today */
 export async function getStaysTodayActivity() {
   const { data, error } = await supabase
@@ -125,7 +127,7 @@ export async function getStaysTodayActivity() {
     console.error(error);
     throw new Error('Bookings could not get loaded');
   }
-  return data;
+  return data as TodayActivityReturn[];
 }
 
 /**

@@ -1,11 +1,12 @@
 import { Box, LoadingOverlay } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
+import { useCabins } from '../../hooks/useCabins';
 import { useRecentBookings } from '../../hooks/useRecentBookings';
 import { useRecentStays } from '../../hooks/useRecentStays';
-import Stats from './Stats';
-import { useCabins } from '../../hooks/useCabins';
-import SalesChart from './SalesChart';
+import TodayActivity from '../check-in-out/TodayActivity';
 import DurationChart from './DurationChart';
+import SalesChart from './SalesChart';
+import Stats from './Stats';
 
 export default function DashboardLayout() {
   const { isPending, bookings, error, numDays } = useRecentBookings();
@@ -29,15 +30,15 @@ export default function DashboardLayout() {
   }
 
   return (
-    <Box className='mt-8 space-y-8'>
+    <Box className='mb-40 mt-8 space-y-8 md:mb-0'>
       <Stats
         bookings={bookings}
         confirmedStays={confirmedStays}
         numDays={numDays}
         cabinCount={cabins.length}
       />
-      <Box className='grid grid-cols-1 lg:grid-cols-2 gap-4'>
-        <Box>Today's activity</Box>
+      <Box className='grid grid-cols-1 gap-4 lg:grid-cols-[1fr_auto] 2xl:grid-cols-2'>
+        <TodayActivity />
         <DurationChart confirmedStays={confirmedStays} />
       </Box>
       <SalesChart bookings={bookings || []} numDays={numDays} />

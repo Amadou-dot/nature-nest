@@ -1,10 +1,11 @@
-import { Box, Image, Text } from '@mantine/core';
+import { Box, Text } from '@mantine/core';
 import { HiOutlineCheckCircle } from 'react-icons/hi';
 import {
   HiOutlineChatBubbleBottomCenterText,
   HiOutlineXMark,
 } from 'react-icons/hi2';
 import { BookingProp } from '../../types/database.types';
+import Flag from '../../ui/Flag';
 
 export default function GuestInfo({ booking }: BookingProp) {
   const { cabins, guests, hasBreakfast, userNotes } = booking;
@@ -20,11 +21,7 @@ export default function GuestInfo({ booking }: BookingProp) {
           className='flex items-center gap-2 font-semibold'
         >
           {countryFlag && (
-            <Image
-              src={countryFlag}
-              alt={`${nationality} flag`}
-              className='h-6 w-6'
-            />
+            <Flag countryFlag={countryFlag} alt={`${nationality} flag`} />
           )}
           {`${fullName} ${maxCapacity && maxCapacity > 1 ? `+ ${maxCapacity - 1} guests` : ''}`}
         </Text>

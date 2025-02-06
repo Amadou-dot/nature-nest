@@ -15,9 +15,11 @@ export default function TabsFilter({
   };
   return (
     <Tabs
+      className='w-full lg:w-1/2'
       defaultValue='all'
       value={searchParams.get(param) || 'all'}
-      onChange={handleFilterChange}>
+      onChange={handleFilterChange}
+    >
       <Tabs.List grow justify='space-between'>
         {tabs.map((tab) => (
           <Tabs.Tab color={COLORS.primary} value={tab.value} key={tab.value}>

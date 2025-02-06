@@ -12,7 +12,6 @@ export interface BookingAfterDate {
   extrasPrice: number;
 }
 
-
 export interface StayAfterDate {
   id: number;
   startDate: string;
@@ -23,3 +22,7 @@ export interface StayAfterDate {
     fullName: string;
   }[];
 }
+
+export type TodayActivityReturn = Booking & {
+  guests: { fullName: string; countryFlag: string; nationality: string };
+};
