@@ -26,7 +26,7 @@ export default function UpdateUserDataForm() {
 
   return (
     <form
-      className='flex flex-col gap-4 rounded-lg p-4 shadow-lg dark:bg-dark-grey-100/80'
+      className='flex flex-col gap-4 rounded-lg border-grey-200 p-4 shadow-md dark:bg-dark-grey-100/80'
       onSubmit={(e) => {
         e.preventDefault();
         handleSubmit();

@@ -27,7 +27,7 @@ export default function TodayItem({ activity }: TodayItemProps) {
           alt={`${guests.nationality} flag`}
         />
       )}
-      <Text className='md:w-full md:max-w-32'>{guests.fullName}</Text>
+      <Text className='md:w-full md:max-w-40'>{guests.fullName}</Text>
       <Text>{numNights} nights</Text>
 
       {status === 'unconfirmed' && (
