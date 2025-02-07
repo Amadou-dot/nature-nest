@@ -47,7 +47,7 @@ export default function Sidebar() {
               key={link.to}
               to={link.to}
               className={({ isActive }) =>
-                `flex items-center gap-2 text-lg select-none ${isActive ? 'text-indigo-700' : ''}`
+                `flex select-none items-center gap-2 text-lg ${isActive ? 'text-indigo-700' : ''}`
               }
             >
               {link.icon} <span className='w-6 xl:text-xl'>{link.label}</span>

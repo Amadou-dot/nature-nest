@@ -29,7 +29,9 @@ export default function CreateCabinForm() {
 
   if (createError) {
     return notifications.show({
-      message: createError.message || 'Action could not be completed. Please try again',
+      message:
+        createError.message ||
+        'Action could not be completed. Please try again',
       color: 'red',
       autoClose: false,
     });
@@ -126,7 +128,12 @@ export default function CreateCabinForm() {
           />
         )}
       </Field>
-      <Button variant='filled' type='submit' disabled={isCreating} loading={isCreating}>
+      <Button
+        variant='filled'
+        type='submit'
+        disabled={isCreating}
+        loading={isCreating}
+      >
         Submit
       </Button>
     </form>

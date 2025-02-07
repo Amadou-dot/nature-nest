@@ -75,7 +75,7 @@ export const updateCurrentUser = async ({
   const fileName = `${data.user.id}/${avatar.name}`;
   const { error: uploadError } = await supabase.storage
     .from('avatars')
-    .upload(fileName, avatar, {upsert: true});
+    .upload(fileName, avatar, { upsert: true });
   if (uploadError) throw new Error(uploadError.message);
 
   // update avatar in the user table

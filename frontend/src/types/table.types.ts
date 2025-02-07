@@ -11,7 +11,6 @@ export type HeaderRowProps<T> = {
   menuActions?: MenuAction[];
 };
 
-
 export type DataRowProps<T> = {
   data: Cell<T, unknown>[];
   rowType: 'data';

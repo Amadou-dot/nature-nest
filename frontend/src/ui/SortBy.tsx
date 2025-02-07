@@ -15,7 +15,8 @@ export default function SortBy({
   };
 
   return (
-    <Select className='lg:w-60 w-full'
+    <Select
+      className='w-full lg:w-60'
       classNames={{
         input:
           'border border-1 border-gray-300 focus:outline-none focus:ring-1 focus:ring-indigo-700 focus:border-none',

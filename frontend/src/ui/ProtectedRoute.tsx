@@ -10,8 +10,8 @@ export default function ProtectedRoute({
 }) {
   const navigate = useNavigate();
   // logic to check if user is authenticated
-  const {isPending, isAuthenticated} = useUser();
-  if(isPending) return <LoadingOverlay visible />;
+  const { isPending, isAuthenticated } = useUser();
+  if (isPending) return <LoadingOverlay visible />;
   // if not, redirect to login page
   if (!isAuthenticated && !isPending) navigate('/login');
   // if authenticated, render children

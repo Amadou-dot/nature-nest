@@ -4,7 +4,7 @@ import UpdateUserDataForm from '../ui/UpdateUserDataForm';
 
 export default function Account() {
   return (
-    <Box className='mx-auto mb-40 w-10/12 max-w-[1800px] md:mb-20 lg:mb-0 gap-10 flex flex-col'>
+    <Box className='mx-auto mb-40 flex w-10/12 max-w-[1800px] flex-col gap-10 md:mb-20 lg:mb-0'>
       <UpdateUserDataForm />
       <UpdatePasswordForm />
     </Box>

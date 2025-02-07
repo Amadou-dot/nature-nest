@@ -1,4 +1,4 @@
-import { Box, useMantineColorScheme } from '@mantine/core';
+import { Box, useComputedColorScheme } from '@mantine/core';
 import {
   HiOutlineBanknotes,
   HiOutlineBriefcase,
@@ -21,8 +21,8 @@ export default function Stats({
   numDays,
   cabinCount,
 }: StatsProps) {
+  const colorScheme = useComputedColorScheme();
   if (!bookings || !confirmedStays) return null;
-  const { colorScheme } = useMantineColorScheme();
   const isDarkMode = colorScheme === 'dark';
   const totalBookings = bookings.length;
   const totalSales = bookings.reduce(
@@ -35,7 +35,7 @@ export default function Stats({
       (numDays * cabinCount)) *
     100;
   return (
-    <Box className='grid grid-cols-1 items-center gap-4 divide-x-0 dark:divide-dark-grey-200 dark:bg-dark-grey-0 md:grid-cols-2 lg:grid-cols-4 lg:divide-x h-fit py-4 lg:py-8'>
+    <Box className='grid h-fit grid-cols-1 items-center gap-4 divide-x-0 py-4 dark:divide-dark-grey-200 dark:bg-dark-grey-0 md:grid-cols-2 lg:grid-cols-4 lg:divide-x lg:py-8'>
       <Stat
         icon={HiOutlineBriefcase}
         title='Bookings'

@@ -3,7 +3,7 @@ import Logout from './Logout';
 
 export default function HeaderMenu() {
   return (
-    <ul className='flex w-full justify-end gap-4 items-center'>
+    <ul className='flex w-full items-center justify-end gap-4'>
       <li>
         <Logout />
       </li>

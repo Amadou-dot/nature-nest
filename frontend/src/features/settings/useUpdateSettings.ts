@@ -12,7 +12,7 @@ export function useUpdateSettings() {
         color: 'blue',
       }),
 
-    onError: error =>
+    onError: (error) =>
       notifications.show({
         message:
           error instanceof Error ? error.message : 'Error updating settings',

@@ -15,7 +15,7 @@ const options = [
 export default function BookingTableOperations() {
   return (
     <>
-      <TabsFilter tabs={tabs} param='status'/>
+      <TabsFilter tabs={tabs} param='status' />
       <SortBy options={options} />
     </>
   );

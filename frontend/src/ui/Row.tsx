@@ -5,7 +5,7 @@ import { RowProps } from '../types/table.types';
 
 export default function Row<T extends { id: number }>(props: RowProps<T>) {
   return (
-    <tr className='border-grey-200 dark:border-dark-grey-200 hover:bg-grey-200 dark:hover:bg-dark-grey-100 border-b last:border-b-0'>
+    <tr className='border-b border-grey-200 last:border-b-0 hover:bg-grey-200 dark:border-dark-grey-200 dark:hover:bg-dark-grey-100'>
       {props.rowType === 'header' &&
         props.data?.map((row) => (
           <th className='px-4 py-2 text-left' key={row.id}>

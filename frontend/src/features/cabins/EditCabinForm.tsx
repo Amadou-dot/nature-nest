@@ -10,7 +10,10 @@ type EditCabinFormProps = {
   cabinId: number;
 };
 
-export default function EditCabinForm({ cabinData, cabinId }: EditCabinFormProps) {
+export default function EditCabinForm({
+  cabinData,
+  cabinId,
+}: EditCabinFormProps) {
   const { isUpdating, updateCabinMutation, updateError } = useUpdateCabin();
   const { Field, handleSubmit } = useForm({
     defaultValues: {
@@ -35,7 +38,9 @@ export default function EditCabinForm({ cabinData, cabinId }: EditCabinFormProps
 
   if (updateError) {
     return notifications.show({
-      message: updateError.message || 'Action could not be completed. Please try again',
+      message:
+        updateError.message ||
+        'Action could not be completed. Please try again',
       color: 'red',
       autoClose: false,
     });
@@ -132,7 +137,12 @@ export default function EditCabinForm({ cabinData, cabinId }: EditCabinFormProps
           />
         )}
       </Field>
-      <Button variant='filled' type='submit' disabled={isUpdating} loading={isUpdating}>
+      <Button
+        variant='filled'
+        type='submit'
+        disabled={isUpdating}
+        loading={isUpdating}
+      >
         Submit
       </Button>
     </form>

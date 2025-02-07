@@ -10,7 +10,12 @@ import {
   mobileBookingColumns,
   tabletBookingColumns,
 } from './ResponsiveBookingColumns';
-import { LARGE_TABLET_MAX_WIDTH, MOBILE_MAX_WIDTH, PAGE_SIZES, TABLET_MAX_WIDTH } from '../../helpers/constants';
+import {
+  LARGE_TABLET_MAX_WIDTH,
+  MOBILE_MAX_WIDTH,
+  PAGE_SIZES,
+  TABLET_MAX_WIDTH,
+} from '../../helpers/constants';
 
 const sortKeyMap = {
   id: 'id',
@@ -20,7 +25,9 @@ const sortKeyMap = {
 export default function BookingTable() {
   const isMobile = useMediaQuery(`(max-width: ${MOBILE_MAX_WIDTH}px)`);
   const isTablet = useMediaQuery(`(max-width: ${TABLET_MAX_WIDTH}px)`);
-  const isLargeTablet = useMediaQuery(`(max-width: ${LARGE_TABLET_MAX_WIDTH}px)`);
+  const isLargeTablet = useMediaQuery(
+    `(max-width: ${LARGE_TABLET_MAX_WIDTH}px)`,
+  );
   const columns = isMobile
     ? mobileBookingColumns
     : isTablet

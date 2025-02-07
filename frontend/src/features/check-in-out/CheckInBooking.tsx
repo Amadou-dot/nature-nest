@@ -94,7 +94,7 @@ export default function CheckInBooking() {
         </Text>
       )}
       {status === 'checked-out' && (
-        <Text className='text-right font-semibold text-gray-500'>
+        <Text className='text-gray-500 text-right font-semibold'>
           Booking already checked out
         </Text>
       )}

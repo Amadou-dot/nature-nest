@@ -1,10 +1,4 @@
-import {
-  Badge,
-  Box,
-  Button,
-  LoadingOverlay,
-  Text
-} from '@mantine/core';
+import { Badge, Box, Button, LoadingOverlay, Text } from '@mantine/core';
 import { useNavigate } from 'react-router-dom';
 import { getBadgeColor } from '../../helpers/utilFunctions';
 import { useBooking } from '../../hooks/useBooking';
@@ -40,7 +34,7 @@ export default function BookingDetail() {
       </Box>
       <BookingDataBox booking={booking} />
       <Box className='flex justify-end gap-5'>
-        <Box className='flex gap-5 mt-5'>
+        <Box className='mt-5 flex gap-5'>
           {status === 'unconfirmed' && (
             <Button onClick={() => navigate(`/check-in/${booking.id}`)}>
               Check in

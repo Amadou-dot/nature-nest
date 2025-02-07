@@ -189,5 +189,4 @@ export const customTheme: MantineThemeOverride = {
     fontFamily: 'Roboto Mono, monospace',
   },
   luminanceThreshold: 0.3,
-  
 };

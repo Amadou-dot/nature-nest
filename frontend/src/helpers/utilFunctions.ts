@@ -3,7 +3,7 @@ import { BOOKING_STATUS } from './constants';
 //Should work for both Date objects and strings (which come from Supabase)
 export const subtractDates = (
   dateStr1: string | Date,
-  dateStr2: string | Date
+  dateStr2: string | Date,
 ): number =>
   differenceInDays(parseISO(String(dateStr1)), parseISO(String(dateStr2)));
 
@@ -32,7 +32,7 @@ export const getToday = function (options: { end?: boolean } = {}) {
 
 export const formatCurrency = (value: number) =>
   new Intl.NumberFormat('en', { style: 'currency', currency: 'USD' }).format(
-    value
+    value,
   );
 
 export const formatDate = (date: string, time?: boolean) => {
@@ -53,7 +53,9 @@ export const formatDate = (date: string, time?: boolean) => {
 
 export const getBadgeColor = (status: string | null) => {
   if (!status) return 'bg-silver-700 dark:bg-dark-silver-100';
-  if (status === BOOKING_STATUS.checkedIn) return 'bg-green-700 dark:bg-dark-green-100'; 
-  if (status === BOOKING_STATUS.unconfirmed) return 'bg-yellow-700 dark:bg-dark-yellow-100'
+  if (status === BOOKING_STATUS.checkedIn)
+    return 'bg-green-700 dark:bg-dark-green-100';
+  if (status === BOOKING_STATUS.unconfirmed)
+    return 'bg-yellow-700 dark:bg-dark-yellow-100';
   return 'bg-silver-700 dark:bg-dark-silver-100';
 };

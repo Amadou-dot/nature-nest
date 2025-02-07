@@ -126,14 +126,14 @@ export default function Table<T extends { id: number }>({
             <Button
               onClick={() => table.previousPage()}
               disabled={!table.getCanPreviousPage()}
-              className='dark:bg-brand-600 dark:text-dark-grey-700 disabled:cursor-not-allowed disabled:opacity-50'
+              className='disabled:cursor-not-allowed disabled:opacity-50 dark:bg-brand-600 dark:text-dark-grey-700'
             >
               {'<'}
             </Button>
             <Button
               onClick={() => table.nextPage()}
               disabled={!table.getCanNextPage()}
-              className='dark:bg-brand-600 dark:text-dark-grey-700 disabled:cursor-not-allowed disabled:opacity-50'
+              className='disabled:cursor-not-allowed disabled:opacity-50 dark:bg-brand-600 dark:text-dark-grey-700'
             >
               {'>'}
             </Button>

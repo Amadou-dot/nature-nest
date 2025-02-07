@@ -17,7 +17,7 @@ const sortOptions = [
 export default function CabinTableOperations() {
   return (
     <>
-      <TabsFilter tabs={tabs} param='filter'/>
+      <TabsFilter tabs={tabs} param='filter' />
       <SortBy options={sortOptions} />
     </>
   );

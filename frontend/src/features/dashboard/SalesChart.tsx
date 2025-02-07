@@ -1,5 +1,5 @@
 import { AreaChart } from '@mantine/charts';
-import { Box, Text, useMantineColorScheme } from '@mantine/core';
+import { Box, Text, useComputedColorScheme } from '@mantine/core';
 import { eachDayOfInterval, formatDate, isSameDay, subDays } from 'date-fns';
 import { BookingAfterDate } from '../../types/bookings.types';
 interface SalesChartProps {
@@ -8,7 +8,7 @@ interface SalesChartProps {
 }
 
 export default function SalesChart({ bookings, numDays }: SalesChartProps) {
-  const { colorScheme } = useMantineColorScheme();
+  const colorScheme = useComputedColorScheme();
   const isDarkMode = colorScheme === 'dark';
   const series = [
     { name: 'totalSales', color: isDarkMode ? 'indigo.2' : 'indigo.6' },
@@ -26,7 +26,12 @@ export default function SalesChart({ bookings, numDays }: SalesChartProps) {
       .filter((booking) => isSameDay(date, new Date(booking.created_at)))
       .reduce((acc, booking) => acc + booking.extrasPrice, 0);
 
-    if (totalSales === 0 && extraSales === 0) return { date: formatDate(date, 'MMM dd'), totalSales: null, extraSales: null };
+    if (totalSales === 0 && extraSales === 0)
+      return {
+        date: formatDate(date, 'MMM dd'),
+        totalSales: null,
+        extraSales: null,
+      };
     return {
       date: formatDate(date, 'MMM dd'),
       totalSales,

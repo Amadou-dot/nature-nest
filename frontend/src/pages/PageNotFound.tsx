@@ -2,7 +2,7 @@ import { Box, Text } from '@mantine/core';
 
 export default function PageNotFound() {
   return (
-    <Box className='text-grey-800 dark:text-dark-grey-500 flex h-screen flex-col justify-around px-10'>
+    <Box className='flex h-screen flex-col justify-around px-10 text-grey-800 dark:text-dark-grey-500'>
       <Text className='text-7xl font-semibold' component='h1'>
         /not
       </Text>

@@ -50,11 +50,10 @@ export const PASSWORD_MIN_LENGTH = 8 as const;
 /** Requirements for creating a password */
 export const PASSWORD_MAX_LENGTH = 20 as const;
 /** Requirements for creating a password */
-export const PASSWORD_REQUIREMENTS= [
+export const PASSWORD_REQUIREMENTS = [
   { re: /[0-9]/, label: 'Includes number' },
   { re: /[a-z]/, label: 'Includes lowercase letter' },
   { re: /[A-Z]/, label: 'Includes uppercase letter' },
   { re: /[$&+,:;=?@#|'<>.^*()%!-]/, label: 'Includes special symbol' },
   { re: /^.{8,20}$/, label: 'Between 8 and 20 characters' },
 ];
-

@@ -28,14 +28,14 @@ export default function GuestInfo({ booking }: BookingProp) {
 
         <Text
           component='span'
-          className='text-grey-500 dark:text-dark-grey-500 flex gap-2'
+          className='flex gap-2 text-grey-500 dark:text-dark-grey-500'
         >
           <Text className='hidden md:block'>&bull;</Text> <Text>{email}</Text>
         </Text>
 
         <Text
           component='span'
-          className='text-grey-500 dark:text-dark-grey-500 flex gap-2'
+          className='flex gap-2 text-grey-500 dark:text-dark-grey-500'
         >
           <Text className='hidden md:block'>&bull;</Text>{' '}
           <Text> National ID: {nationalID}</Text>
@@ -52,12 +52,14 @@ export default function GuestInfo({ booking }: BookingProp) {
             <HiOutlineChatBubbleBottomCenterText className='dark:text-dark-yellow-100' />
             User Note
           </Text>
-          <Text component='span' className='text-center'>{userNotes}</Text>
+          <Text component='span' className='text-center'>
+            {userNotes}
+          </Text>
         </Text>
       )}
 
       {/*//? Breakfast included */}
-      <Text className='mt-5 flex items-center gap-2 font-semibold justify-center md:justify-start'>
+      <Text className='mt-5 flex items-center justify-center gap-2 font-semibold md:justify-start'>
         {hasBreakfast ? (
           <HiOutlineCheckCircle
             size={20}

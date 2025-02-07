@@ -25,7 +25,7 @@ export default function UpdatePasswordForm() {
         handleSubmit();
       }}
       onReset={() => reset()}
-      className='flex flex-col gap-4 rounded-lg border border-grey-200 p-4 shadow-md dark:bg-dark-grey-100/80'
+      className='flex flex-col gap-4 rounded-lg border border-grey-200 dark:border-0 p-4 shadow-md dark:bg-dark-grey-100/80'
     >
       <Text className='text-xl font-bold'>Update password</Text>
       <Box className='flex flex-col gap-4'>

@@ -201,7 +201,7 @@ export type Cabin = Database['public']['Tables']['cabins']['Row'];
 export type Guest = Database['public']['Tables']['guests']['Row'];
 export type Setting = Database['public']['Tables']['settings']['Row'];
 export type BookingWithDetails = Booking & { cabins: Cabin; guests: Guest };
-export type BookingProp = { booking: BookingWithDetails; };
+export type BookingProp = { booking: BookingWithDetails };
 type PublicSchema = Database[Extract<keyof Database, 'public'>];
 
 export type Tables<

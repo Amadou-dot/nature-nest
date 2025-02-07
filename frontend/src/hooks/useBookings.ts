@@ -10,7 +10,7 @@ export const useBookings = () => {
 
   const [field, direction] = sortValue.split('-') as [
     field: keyof Booking,
-    direction: 'asc' | 'desc'
+    direction: 'asc' | 'desc',
   ];
   const sortBy = { field, direction };
 

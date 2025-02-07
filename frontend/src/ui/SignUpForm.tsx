@@ -26,7 +26,7 @@ export default function SignUpForm() {
         handleSubmit();
       }}
     >
-      <Box className='flex w-full flex-col items-center justify-center gap-4 *:w-full max-w-[1800px] mx-auto'>
+      <Box className='mx-auto flex w-full max-w-[1800px] flex-col items-center justify-center gap-4 *:w-full'>
         <Field
           name='fullName'
           children={(field) => (

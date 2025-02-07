@@ -108,7 +108,6 @@ export async function getStaysAfterDate(
   return data as StayAfterDate[];
 }
 
-
 /** Gets bookings that were changed today i.e. checked in or checked out today */
 export async function getStaysTodayActivity() {
   const { data, error } = await supabase

@@ -8,9 +8,7 @@ import {
 } from '@mantine/core';
 import { useState } from 'react';
 import { HiCheck, HiXMark } from 'react-icons/hi2';
-import {
-  PASSWORD_REQUIREMENTS
-} from '../helpers/constants';
+import { PASSWORD_REQUIREMENTS } from '../helpers/constants';
 
 function PasswordRequirement({
   meets,

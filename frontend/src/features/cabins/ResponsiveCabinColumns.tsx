@@ -1,6 +1,10 @@
-import { NumberFormatter } from "@mantine/core";
-import { CellContext, ColumnDef, createColumnHelper } from "@tanstack/react-table";
-import { Cabin } from "../../types/database.types";
+import { NumberFormatter } from '@mantine/core';
+import {
+  CellContext,
+  ColumnDef,
+  createColumnHelper,
+} from '@tanstack/react-table';
+import { Cabin } from '../../types/database.types';
 
 const columnHelper = createColumnHelper<Cabin>();
 export const desktopCabinColumns: ColumnDef<Cabin, never>[] = [
